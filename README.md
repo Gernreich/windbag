@@ -9,9 +9,9 @@ played on the PC speaker, with the melody and gracenote speeds set separately.
 The web edition plays the same files in a browser.
 
 **Whose work this is.** Win(d)Bag, the `.wbg` format, the practice-chanter
-tuning window and the Perl players are Michael Carnright's. The web edition and
-the Python players are later ports. The tunes are traditional; their `.wbg`
-transcriptions are his.
+tuning window, the Perl players and the colouring of the Holbein woodcut are
+Michael Carnright's. The web edition and the Python players are later ports. The
+tunes are traditional or his own, and their `.wbg` transcriptions are his.
 
 ## Contents
 
@@ -22,7 +22,8 @@ transcriptions are his.
 | `vb3/` | Visual Basic 3 source of version 0.2 (16 September 2000): forms, modules, project, button images, format notes, original READMEs |
 | `perl/` | `windbag.perl`, `windbag2.perl` (adds embellishment names) and helpers |
 | `python/` | terminal, Tk and uilleann players for macOS (comma format only) |
-| `tunes/` | fifteen traditional tunes and two demos |
+| `tunes/` | 34 tunes: traditional tunes, band sets, exercises and two demos |
+| `images/le-fol.png` | Holbein's *Le Fol*, as coloured for the original main window |
 | `bundle_tunes.py` | builds every `.wbg` in `tunes/` into `play.html` |
 
 ## Adding a tune
