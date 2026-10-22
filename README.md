@@ -31,6 +31,7 @@ from pipe tutor books. Their `.wbg` transcriptions are his.
 | `perl/` | `windbag.perl`, `windbag2.perl` (adds embellishment names) and helpers |
 | `python/` | terminal and Tk players for macOS that play `tunes/`, embellishment names included, and a uilleann variant (`.uwbg`) |
 | `tunes/` | 93 tunes: marches and airs, Irish tunes, band sets, tutor-book settings, exercises and two demos |
+| `uwbg/` | three traditional tunes for the uilleann player: Òró Sé do Bheatha Bhaile, a lament and the Epitaph of Seikilos |
 | `images/le-fol.png` | Holbein's *Le Fol*, as coloured for the original main window |
 | `bundle_tunes.py` | builds every `.wbg` in `tunes/` into `play.html` |
 

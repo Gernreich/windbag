@@ -2,6 +2,7 @@
 """
 Play a .uwbg uilleann pipe tune file (chanter only, no drones).
 Usage: python3 uilleann_play.py [tunefile.uwbg] [melody_multiplier]
+       (a bare name such as "lament" is looked up in the repository's uwbg/ folder)
        python3 uilleann_play.py --scale   (play the full scale and exit)
 
 Requires macOS (uses afplay for audio output).
@@ -54,6 +55,9 @@ import wave
 from pathlib import Path
 
 import numpy as np
+
+# The tunes that ship with the repository.
+UWBG_DIR = Path(__file__).resolve().parent.parent / 'uwbg'
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -261,9 +265,16 @@ def main() -> None:
 
     if args.tunefile is None:
         parser.print_help()
+        print('\nTunes in', UWBG_DIR, ':')
+        for t in sorted(UWBG_DIR.glob('*.uwbg')):
+            print('  ' + t.stem)
         sys.exit(0)
 
     tune_path = Path(args.tunefile)
+    if not tune_path.exists():
+        named = UWBG_DIR / (tune_path.name if tune_path.suffix else tune_path.name + '.uwbg')
+        if named.exists():
+            tune_path = named
     if not tune_path.exists():
         print(f'error: file not found: {tune_path}', file=sys.stderr)
         sys.exit(1)
