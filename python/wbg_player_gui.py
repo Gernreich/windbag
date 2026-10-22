@@ -12,7 +12,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 SCRIPT_DIR = Path(__file__).parent.resolve()
-WBG_DIR    = SCRIPT_DIR / "wbg"
+WBG_DIR    = SCRIPT_DIR.parent / "tunes"
 PLAYER     = SCRIPT_DIR / "refactored_play_wbg.py"
 
 

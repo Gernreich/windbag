@@ -11,13 +11,15 @@ to module level, and argument parsing uses argparse for proper --help support.
 Requires macOS (uses afplay for audio output).
 
 .wbg format recap:
-  - Each line (and the whole file) is a comma-separated sequence of tokens.
+  - Tokens are separated by commas, spaces or line breaks.
   - Tokens alternate: note_letter, duration_value, note_letter, duration_value, ...
+  - Embellishment names (dbe, tar, hvthrd, gg, ...) stand for their gracenotes and
+    are expanded first, as in windbag2.perl and the web edition.
   - Note letters: g a b c d e f G A  (low g through high A on the chanter)
   - Duration values are integer multiples of a base unit, e.g.
       0  = grace note (played for a fixed short time, not a musical duration)
       24 = 8th note, 48 = quarter note, 96 = half note, 192 = whole note
-  - Numeric tokens > 20000 (e.g. 30000) are rest/silence markers.
+  - Numeric tokens > 20000 (e.g. 30000), and z, are rest/silence markers.
 """
 
 import argparse
@@ -48,6 +50,41 @@ _CHANTER_FREQS = [409, 460, 518, 576, 622, 691, 768, 829, 921]
 # Using zip() keeps the two lists in lockstep and makes it obvious they must
 # stay the same length — unlike the original which indexed CHANTER manually.
 NOTE_MAP: dict[str, int] = dict(zip(_CHANTER_NOTES, _CHANTER_FREQS))
+
+# Embellishment names, as in windbag2.perl and play.html's ORNAMENTS, in the same
+# order: each is replaced by its gracenotes before the tokens are split, and
+# longer names must go before the shorter ones they contain.
+ORNAMENTS: list[tuple[str, str]] = [
+    ('tar',    'g 0 d 0 g 0 e 0'),   # taorluath
+    ('hvthrd', 'g 0 d 0 g 0 c 0'),   # heavy throw
+    ('abr',    'a 0 g 0 a 0 g 0'),
+    ('dbb',    'G 0 b 0 d 0'),       # doubling on B
+    ('dbc',    'G 0 c 0 d 0'),
+    ('dbe',    'G 0 e 0 f 0'),
+    ('hdbf',   'f 0 G 0'),           # half doubling on F; before dbf, which it contains
+    ('dbf',    'G 0 f 0 G 0'),
+    ('dbhg',   'G 0 f 0'),           # doubling on high G
+    ('dbha',   'A 0 G 0'),           # doubling on high A
+    ('grp',    'g 0 d 0 g 0'),       # grip
+    ('brl',    'g 0 a 0 g 0'),       # birl
+    ('strlg',  'g 0'),               # strike on G
+    ('strla',  'a 0'),               # strike on A
+    ('gstrd',  'G 0 d 0 g 0'),       # G strike on D
+    ('bg',     'b 0'),               # single-note gracenote shortcuts
+    ('cg',     'c 0'),
+    ('eg',     'e 0'),
+    ('dg',     'd 0'),
+    ('fg',     'f 0'),
+    ('gg',     'G 0'),               # high G gracenote
+    ('tg',     'A 0'),               # high A ("top") gracenote
+]
+
+
+def expand_ornaments(text: str) -> str:
+    """Replace every embellishment name with its gracenotes."""
+    for name, expansion in ORNAMENTS:
+        text = text.replace(name, expansion)
+    return text
 
 
 # ---------------------------------------------------------------------------
@@ -108,9 +145,9 @@ def parse_wbg(path: Path) -> list[tuple[int, int]]:
     """
     Read a .wbg tune file and return a list of (frequency_hz, duration_units) pairs.
 
-    The .wbg format uses commas and newlines interchangeably as delimiters.
-    re.split(r'[\\n,]+') handles both in one pass and naturally skips empty
-    fields, replacing the original replace()+split()+strip() chain.
+    Embellishment names are expanded first. Commas, spaces and newlines are
+    interchangeable delimiters; re.split(r'[,\\s]+') handles all three in one
+    pass and naturally skips empty fields.
 
     Token resolution rules (matching windbag.perl):
       - A recognised note letter → looked up in NOTE_MAP to get Hz.
@@ -122,10 +159,10 @@ def parse_wbg(path: Path) -> list[tuple[int, int]]:
     mis-aligned), we advance by one token and retry rather than skipping two,
     so the parser can re-sync on the next valid pair.
     """
-    raw = path.read_text()
+    raw = expand_ornaments(path.read_text(errors='replace'))
 
-    # Split on any run of commas/newlines; filter out whitespace-only fragments
-    tokens = [t for t in re.split(r'[\n,]+', raw) if t.strip()]
+    # Split on any run of commas/whitespace; filter out empty fragments
+    tokens = [t for t in re.split(r'[,\s]+', raw) if t]
 
     song: list[tuple[int, int]] = []
     i = 0
@@ -143,6 +180,8 @@ def parse_wbg(path: Path) -> list[tuple[int, int]]:
         # Resolve note letter → frequency
         if note_token in NOTE_MAP:
             freq = NOTE_MAP[note_token]
+        elif note_token == 'z':
+            freq = 0   # rest
         else:
             try:
                 freq = int(note_token)
@@ -278,8 +317,9 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
-        'tunefile', nargs='?', default='Gary_Owen_set.wbg',
-        help='Path to a .wbg tune file (default: Gary_Owen_set.wbg)',
+        'tunefile', nargs='?',
+        default=str(Path(__file__).resolve().parent.parent / 'tunes' / 'band_set_garry_owen.wbg'),
+        help='Path to a .wbg tune file (default: tunes/band_set_garry_owen.wbg)',
     )
     parser.add_argument(
         'melody', nargs='?', type=int, default=7,

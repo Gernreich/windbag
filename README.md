@@ -29,7 +29,7 @@ from pipe tutor books. Their `.wbg` transcriptions are his.
 | `play.html` | the web edition; `play.html?test` runs its parser tests |
 | `vb3/` | Visual Basic 3 source of version 0.2 (16 September 2000): forms, modules, project, button images, format notes, original READMEs |
 | `perl/` | `windbag.perl`, `windbag2.perl` (adds embellishment names) and helpers |
-| `python/` | terminal, Tk and uilleann players for macOS (comma format only) |
+| `python/` | terminal and Tk players for macOS that play `tunes/`, embellishment names included, and a uilleann variant (`.uwbg`) |
 | `tunes/` | 93 tunes: marches and airs, Irish tunes, band sets, tutor-book settings, exercises and two demos |
 | `images/le-fol.png` | Holbein's *Le Fol*, as coloured for the original main window |
 | `bundle_tunes.py` | builds every `.wbg` in `tunes/` into `play.html` |

@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent.resolve()
-WBG_DIR    = SCRIPT_DIR / "wbg"
+WBG_DIR    = SCRIPT_DIR.parent / "tunes"
 PLAYER     = SCRIPT_DIR / "refactored_play_wbg.py"
 
 
