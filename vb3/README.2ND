@@ -1,0 +1,26 @@
+                 Computer/Practice Chanter Alignment Window
+                      _________________________________    
+
+
+        This window creates the file "chanter.txt" needed by the Win(d)Bag
+program to play the notes of your practice chanter.  
+
+	Each Scroll bar represents the frequency of the note that is beside
+it.  To change the pitches scroll the Low G bar.  As you adjust the Low G
+scroll bar to a different frequency all the other bars will adjust to match
+the proper intervals of the bagpipe scale.  When you are satisfied that Low 
+G is ok then move on to Low A.  As Low A is adjusted B,C,D,E,F,high G, and 
+High A are adjusted accordingly.  Low G is not adjusted.  In this manner go 
+up the scale to High A.  when you are satisfied with the notes press the 
+"Thumbs up" radio button.
+
+        To stop the tone at any time press the "halt hand" radio button.
+
+        This window only needs to be used once unless the pitch of your 
+practice chanter changes.
+        
+Thanks,
+
+			Michael Carnright
+
+			(address removed)

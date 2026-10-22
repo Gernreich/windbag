@@ -1,0 +1,48 @@
+                        Win(d)Bag Version 0.2
+                        _____________________
+
+    This program plays bagpipe tunes that have been written in the wbg
+format.  
+    
+    This program allows the user to adjust the speed of the melody and  
+gracenotes.  Extremely slow gracenote speeds will distort the melody.  
+This is because the time it takes to play the gracenote(s) is taken from 
+the melody notes they immediately precede.
+
+    A larger number will give a slower pace. Mixed speeds can be 
+inputted, e.g. slow melodies with fast gracings or fast melodies with slow 
+gracings.  The results are clear.
+
+    After selecting the "Play" radio button there will be four staccato 
+quarternotes at the tempo selected.  Once that is done then the bagpipe 
+tune starts.  During the playing of the tune the melody and gracenote speed
+can be altered by scrolling their respective scroll bars.  The tune may also
+be stopped in mid-play by pressing the "pause" radio button.  By pressing 
+the "Resume" radio button, the pipe tune resumes.  Selecting the "Stop" 
+radio button the tune is reset to the beginning.
+
+    Any comments or suggestions can be e-mailed to (address removed)
+Any suggestions for improvement are welcome.
+
+
+                             Version changes
+                             _______________  
+
+                                Win(d)Bag 
+                                _________
+
+0.2
+                The merging of the the pchanter program and the windbag
+        program to make useage easier.
+                The changing of buttons from words to images to make usage
+        more self-explanatory.
+                The changing of the method of looking at the list of the
+        pipe tune files.  The index of the files was split according to the
+        books that they were translated from.  This was done to make 
+        inclusion of new books easier.
+
+
+
+Thanks
+
+			Michael Carnright

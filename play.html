@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Win(d)Bag — Web Edition</title>
+<style>
+  :root {
+    --bg: #1a1a1f;
+    --panel: #25252d;
+    --border: #3a3a45;
+    --text: #e8e8ec;
+    --muted: #9a9aa6;
+    --accent: #d4a14a;
+    --accent-dim: #6b5226;
+    --danger: #c4544f;
+    --ok: #6dba6d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 0; padding: 24px; max-width: 920px; margin-left: auto; margin-right: auto;
+  }
+  h1 { margin: 0 0 4px; font-size: 22px; letter-spacing: 0.5px; }
+  h1 small { font-weight: normal; color: var(--muted); font-size: 13px; }
+  h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 24px 0 8px; }
+  .panel {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px; margin-bottom: 16px;
+  }
+  .dropzone {
+    border: 2px dashed var(--border); border-radius: 8px; padding: 24px;
+    text-align: center; cursor: pointer; transition: all 0.15s;
+  }
+  .dropzone.hover, .dropzone:hover { border-color: var(--accent); background: rgba(212, 161, 74, 0.05); }
+  .dropzone .tune-name { color: var(--accent); font-weight: bold; font-size: 16px; }
+  .dropzone .hint { color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    background: var(--panel); color: var(--text); border: 1px solid var(--border);
+    padding: 10px 18px; border-radius: 6px; font-size: 14px; cursor: pointer;
+    transition: all 0.1s;
+  }
+  button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  button:disabled { opacity: 0.35; cursor: not-allowed; }
+  button.play { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+  button.play:hover:not(:disabled) { background: var(--accent); color: var(--bg); }
+  .sliders { display: grid; grid-template-columns: 120px 1fr 60px; gap: 8px 12px; align-items: center; }
+  .sliders label { color: var(--muted); }
+  .sliders input[type=range] { width: 100%; accent-color: var(--accent); }
+  .sliders .val { text-align: right; font-variant-numeric: tabular-nums; color: var(--accent); font-size: 13px; }
+  .sliders .unit { color: var(--muted); font-size: 11px; margin-left: 4px; }
+  .wave-select { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .wave-select label {
+    border: 1px solid var(--border); padding: 6px 12px; border-radius: 4px;
+    cursor: pointer; color: var(--muted); font-size: 13px;
+  }
+  .wave-select input { display: none; }
+  .wave-select input:checked + span { color: var(--accent); }
+  .wave-select label:has(input:checked) { border-color: var(--accent); background: rgba(212,161,74,0.08); }
+  details summary { cursor: pointer; color: var(--muted); padding: 4px 0; user-select: none; }
+  details summary:hover { color: var(--text); }
+  .chanter-grid {
+    display: grid; grid-template-columns: 60px 1fr 70px; gap: 6px 12px;
+    align-items: center; margin-top: 12px;
+  }
+  .chanter-grid label { color: var(--muted); font-family: monospace; font-size: 13px; }
+  .chanter-grid .val { text-align: right; font-variant-numeric: tabular-nums; color: var(--accent); }
+  .status { color: var(--muted); font-size: 13px; margin-top: 8px; min-height: 18px; font-variant-numeric: tabular-nums; }
+  .status .now-playing { color: var(--accent); }
+  .now-note { display: inline-block; min-width: 24px; text-align: center; padding: 2px 6px;
+              background: var(--accent-dim); color: var(--accent); border-radius: 4px;
+              font-family: monospace; font-weight: bold; }
+  footer { color: var(--muted); font-size: 11px; margin-top: 24px; text-align: center; }
+  footer a { color: var(--muted); }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .reset-btn {
+    background: transparent; border: 1px solid var(--border); color: var(--muted);
+    padding: 4px 10px; font-size: 12px;
+  }
+  /* test panel */
+  #test-panel { display: none; }
+  body.test-mode #test-panel { display: block; }
+  body.test-mode #app { display: none; }
+  .test-summary { font-size: 16px; margin-bottom: 12px; }
+  .test-summary .ok { color: var(--ok); }
+  .test-summary .fail { color: var(--danger); }
+  .test-row {
+    display: grid; grid-template-columns: 24px 1fr; gap: 8px;
+    padding: 6px 8px; border-bottom: 1px solid var(--border);
+    font-family: ui-monospace, monospace; font-size: 13px;
+  }
+  .test-row.pass { color: var(--text); }
+  .test-row.fail { color: var(--danger); background: rgba(196, 84, 79, 0.05); }
+  .test-row .icon { text-align: center; }
+  .test-row .icon.pass { color: var(--ok); }
+  .test-row .err { color: var(--muted); font-size: 12px; margin-top: 4px; white-space: pre-wrap; }
+  .footer-link { color: var(--muted); text-decoration: none; }
+  .footer-link:hover { color: var(--accent); }
+  .test-button-row { text-align: center; margin: 16px 0 8px; }
+  a.test-button {
+    display: inline-block; padding: 14px 28px; font-size: 16px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); text-decoration: none; transition: all 0.1s;
+  }
+  a.test-button:hover { border-color: var(--accent); color: var(--accent); }
+  /* tune picker */
+  .picker-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .picker-search {
+    flex: 1; background: var(--bg); color: var(--text);
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 8px 12px; font-size: 14px;
+  }
+  .picker-search:focus { outline: none; border-color: var(--accent); }
+  .picker-count { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .picker-list {
+    max-height: 220px; overflow-y: auto; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 4px;
+  }
+  .picker-item {
+    padding: 6px 12px; cursor: pointer; font-family: ui-monospace, monospace;
+    font-size: 13px; color: var(--text); border-bottom: 1px solid var(--border);
+  }
+  .picker-item:last-child { border-bottom: none; }
+  .picker-item:hover { background: rgba(212, 161, 74, 0.08); color: var(--accent); }
+  .picker-item.selected { background: var(--accent-dim); color: var(--accent); }
+  .picker-item.hidden { display: none; }
+  .picker-empty { padding: 12px; color: var(--muted); text-align: center; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<h1>Win(d)Bag <small>— Web Edition</small></h1>
+<p style="color: var(--muted); margin: 0 0 20px;">
+  Plays bagpipe tunes in the original <code>.wbg</code> format by Michael Carnright (2000).
+  Square-wave synthesis, faithful to the PC-speaker timbre of the original.
+</p>
+
+<div id="test-panel">
+  <h2 style="margin-top:0;">Parser tests</h2>
+  <div class="test-summary" id="test-summary">Running…</div>
+  <div id="test-results"></div>
+  <p style="margin-top:16px;">
+    <a href="?" class="footer-link">← Back to app</a>
+  </p>
+</div>
+
+<div id="app">
+<div class="panel" id="picker-panel">
+  <div class="picker-row">
+    <input type="text" id="picker-search" class="picker-search" placeholder="Search tunes…" autocomplete="off">
+    <span class="picker-count" id="picker-count"></span>
+  </div>
+  <div class="picker-list" id="picker-list"></div>
+</div>
+
+<div class="panel">
+  <div class="dropzone" id="dropzone" tabindex="0">
+    <div class="tune-name" id="tune-name">No tune loaded</div>
+    <div class="hint">Drop a <code>.wbg</code> file here or click to choose</div>
+    <input type="file" id="file-input" accept=".wbg,.WBG,.txt" style="display:none">
+  </div>
+  <div class="status" id="status"></div>
+</div>
+
+<div class="panel">
+  <div class="controls">
+    <button class="play" id="btn-play" disabled>▶ Play</button>
+    <button id="btn-pause" disabled>⏸ Pause</button>
+    <button id="btn-resume" disabled>▶ Resume</button>
+    <button id="btn-stop" disabled>⏹ Stop</button>
+  </div>
+  <h2>Tempo</h2>
+  <div class="sliders">
+    <label for="sl-melody">Melody</label>
+    <input type="range" id="sl-melody" min="1000" max="20000" step="100" value="5000">
+    <span class="val"><span id="val-melody">5000</span><span class="unit" id="val-bpm">≈ 120 bpm</span></span>
+
+    <label for="sl-grace">Gracenote</label>
+    <input type="range" id="sl-grace" min="1000" max="30000" step="100" value="15000">
+    <span class="val"><span id="val-grace">15000</span><span class="unit" id="val-grace-ms">≈ 63 ms</span></span>
+  </div>
+  <div class="status" style="margin-top:10px;">
+    Larger numbers = slower. Sliders can be moved while playing.
+  </div>
+  <h2>Waveform</h2>
+  <div class="wave-select" id="wave-select">
+    <label><input type="radio" name="wave" value="sine"><span>Sine</span></label>
+    <label><input type="radio" name="wave" value="square"><span>Square (original)</span></label>
+    <label><input type="radio" name="wave" value="triangle"><span>Triangle</span></label>
+    <label><input type="radio" name="wave" value="sawtooth"><span>Sawtooth</span></label>
+  </div>
+</div>
+
+<div class="panel">
+  <details id="chanter-details">
+    <summary>Practice chanter tuning <span style="font-size:12px;">(advanced)</span></summary>
+    <p style="color:var(--muted);font-size:13px;">
+      Adjust frequencies (Hz) to match your practice chanter. Moving a low slider
+      cascades up the scale using bagpipe interval ratios (9/8, 10/9, 27/25).
+      Click a row's label to preview that note.
+    </p>
+    <div class="chanter-grid" id="chanter-grid"></div>
+    <div style="margin-top:12px;">
+      <button class="reset-btn" id="btn-reset-chanter">Reset to defaults</button>
+    </div>
+  </details>
+</div>
+
+<div class="test-button-row">
+  <a href="?test" class="test-button">🧪 Run parser tests</a>
+</div>
+
+</div><!-- /#app -->
+
+<footer>
+  Web port of Win(d)Bag 0.2 by Michael Carnright. <a href="./">About Win(d)Bag</a>.
+  Drop your own <code>.wbg</code> files on the box above.
+</footer>
+
+<script>
+"use strict";
+
+// ===== Constants =====
+
+// Default chanter frequencies from CHANTER.TXT (Hz)
+const DEFAULT_CHANTER = {
+  g:  412,  // low G
+  a:  464,  // low A
+  b:  522,
+  c:  580,
+  d:  626,
+  e:  696,
+  f:  773,
+  G:  835,  // high G
+  A:  928,  // high A
+};
+
+// Bagpipe scale ratios — each note relative to the one below
+// (from PCHANTER.BAS cascade logic)
+const SCALE_RATIOS = [
+  ['g', 'a',  9/8],
+  ['a', 'b',  9/8],
+  ['b', 'c', 10/9],
+  ['c', 'd', 27/25],
+  ['d', 'e', 10/9],
+  ['e', 'f', 10/9],
+  ['f', 'G', 27/25],
+  ['G', 'A', 10/9],
+];
+
+const NOTE_ORDER = ['g','a','b','c','d','e','f','G','A'];
+const NOTE_LABELS = {
+  g: 'Low G', a: 'Low A', b: 'B', c: 'C', d: 'D',
+  e: 'E', f: 'F', G: 'High G', A: 'High A',
+};
+
+// Four-beat intro: 4× (high-G gracenote, then quarter-note rest)
+const INTRO_NOTES = [
+  ['G', 0], ['z', 48],
+  ['G', 0], ['z', 48],
+  ['G', 0], ['z', 48],
+  ['G', 0], ['z', 48],
+];
+
+// Ornament shorthands from windbag2.perl (2007 version). Applied via
+// substring substitution BEFORE tokenization. Order matches the Perl
+// source; longer/multi-char ornaments must be replaced before the
+// single-letter gracenote shortcuts (cg/eg/dg/fg/gg/tg).
+const ORNAMENTS = [
+  ['tar',    'g 0 d 0 g 0 e 0'],   // taorluath
+  ['hvthrd', 'g 0 d 0 g 0 c 0'],   // heavy throw
+  ['abr',    'a 0 g 0 a 0 g 0'],
+  ['dbb',    'G 0 b 0 d 0'],       // doubling on B
+  ['dbc',    'G 0 c 0 d 0'],
+  ['dbe',    'G 0 e 0 f 0'],
+  ['hdbf',   'f 0 G 0'],           // half doubling on F; before dbf, which it contains
+  ['dbf',    'G 0 f 0 G 0'],
+  ['dbhg',   'G 0 f 0'],           // doubling on high G
+  ['dbha',   'A 0 G 0'],           // doubling on high A
+  ['grp',    'g 0 d 0 g 0'],       // grip
+  ['brl',    'g 0 a 0 g 0'],       // birl
+  ['strlg',  'g 0'],               // strike on G
+  ['strla',  'a 0'],               // strike on A
+  ['gstrd',  'G 0 d 0 g 0'],       // G strike on D
+  ['bg',     'b 0'],               // single-note gracenote shortcuts
+  ['cg',     'c 0'],
+  ['eg',     'e 0'],
+  ['dg',     'd 0'],
+  ['fg',     'f 0'],
+  ['gg',     'G 0'],               // high G gracenote
+  ['tg',     'A 0'],               // high A ("top") gracenote
+];
+
+function expandOrnaments(text) {
+  for (const [name, expansion] of ORNAMENTS) {
+    text = text.split(name).join(expansion);
+  }
+  return text;
+}
+
+// Time conversion: in the original, duration was a busy-loop count of
+// (length × melodySlider) iterations. We map that to milliseconds so that
+// a quarter note (length=48) at default melody=5000 ≈ 500 ms (~120 bpm).
+//
+//   ms = (length * melodySlider) / TIME_SCALE
+//   ms = (graceSlider * 2)       / TIME_SCALE   for gracenotes
+//
+// 48 * 5000 / 480 ≈ 500 ms ✓
+const TIME_SCALE = 480;
+
+// ===== State =====
+
+let chanter = loadChanter();
+let melodyTempo = +(localStorage.getItem('wbg.melody') || 5000);
+let graceTempo  = +(localStorage.getItem('wbg.grace')  || 15000);
+let waveform    = localStorage.getItem('wbg.wave') || 'sine';
+
+let currentTuneText = null;
+let currentTuneName = null;
+
+// Playback state machine: 'idle' | 'playing' | 'paused' | 'stopping'
+let playState = 'idle';
+
+// ===== Audio =====
+
+let audioCtx = null;
+let oscillator = null;
+let gainNode = null;
+
+function ensureAudio() {
+  if (audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  oscillator = audioCtx.createOscillator();
+  oscillator.type = waveform;
+  oscillator.frequency.value = 440;
+  gainNode = audioCtx.createGain();
+  gainNode.gain.value = 0;
+  oscillator.connect(gainNode).connect(audioCtx.destination);
+  oscillator.start();
+}
+
+function noteOn(freq) {
+  ensureAudio();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const t = audioCtx.currentTime;
+  oscillator.frequency.setValueAtTime(freq, t);
+  gainNode.gain.cancelScheduledValues(t);
+  gainNode.gain.setValueAtTime(gainNode.gain.value, t);
+  gainNode.gain.linearRampToValueAtTime(0.15, t + 0.005); // 5ms attack
+}
+
+function noteOff() {
+  if (!audioCtx) return;
+  const t = audioCtx.currentTime;
+  gainNode.gain.cancelScheduledValues(t);
+  gainNode.gain.setValueAtTime(gainNode.gain.value, t);
+  gainNode.gain.linearRampToValueAtTime(0, t + 0.005);    // 5ms release
+}
+
+// ===== Parsing =====
+
+function parseWbg(text) {
+  // Delimiters are comma, whitespace, or newline. Tokens alternate note,length.
+  // Older tune files use commas; 2007-era files use spaces and ornament
+  // shorthands (tar, gg, dbc, etc.) — expand those first.
+  const expanded = expandOrnaments(text);
+  const tokens = expanded
+    .split(/[,\s]+/)
+    .map(s => s.trim())
+    .filter(s => s.length > 0);
+  const notes = [];
+  for (let i = 0; i + 1 < tokens.length; i += 2) {
+    const note = tokens[i];
+    const len  = parseInt(tokens[i + 1], 10);
+    if (isNaN(len)) continue;
+    notes.push([note, len]);
+  }
+  return notes;
+}
+
+// ===== Playback =====
+
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+async function waitWhilePaused() {
+  while (playState === 'paused') await sleep(50);
+}
+
+async function playSequence(notes) {
+  let graceAccum = 0;  // accumulated gracenote time, subtracted from next melody note
+
+  for (const [note, len] of notes) {
+    if (playState === 'stopping') return;
+    await waitWhilePaused();
+    if (playState === 'stopping') return;
+
+    let freq;
+    if (note === 'z') {
+      freq = null;  // rest = silence
+    } else if (chanter[note] != null) {
+      freq = chanter[note];
+    } else {
+      continue;  // unknown note
+    }
+
+    let durationMs;
+    if (len === 0) {
+      // Gracenote: grace * 2 iterations
+      durationMs = (graceTempo * 2) / TIME_SCALE;
+      graceAccum += graceTempo * 2;
+    } else {
+      // Melody note: subtract accumulated gracenote time
+      const iterations = Math.max(1, len * melodyTempo - graceAccum);
+      durationMs = iterations / TIME_SCALE;
+      graceAccum = 0;
+    }
+
+    if (freq == null) {
+      noteOff();
+      setStatusNote('—');
+    } else {
+      noteOn(freq);
+      setStatusNote(NOTE_LABELS[note] || note);
+    }
+
+    await sleep(durationMs);
+  }
+
+  noteOff();
+  setStatusNote('');
+}
+
+async function startPlayback() {
+  if (!currentTuneText) return;
+  ensureAudio();
+  if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+  const tuneNotes = parseWbg(currentTuneText);
+  const all = INTRO_NOTES.concat(tuneNotes);
+
+  playState = 'playing';
+  updateButtons();
+
+  await playSequence(all);
+
+  noteOff();
+  playState = 'idle';
+  updateButtons();
+  setStatus('Done.');
+}
+
+function pause()  { if (playState === 'playing') { playState = 'paused';   noteOff(); updateButtons(); setStatus('Paused.'); } }
+function resume() { if (playState === 'paused')  { playState = 'playing';            updateButtons(); setStatus('Playing.'); } }
+function stop()   { if (playState !== 'idle')    { playState = 'stopping'; noteOff(); updateButtons(); setStatus('Stopped.'); } }
+
+// ===== UI: status =====
+
+const elStatus = document.getElementById('status');
+function setStatus(text) {
+  elStatus.textContent = text;
+}
+function setStatusNote(label) {
+  elStatus.innerHTML = label
+    ? `<span class="now-playing">Playing</span> <span class="now-note">${label}</span>`
+    : '';
+}
+
+// ===== UI: buttons =====
+
+const btnPlay   = document.getElementById('btn-play');
+const btnPause  = document.getElementById('btn-pause');
+const btnResume = document.getElementById('btn-resume');
+const btnStop   = document.getElementById('btn-stop');
+
+function updateButtons() {
+  const haveTune = !!currentTuneText;
+  btnPlay.disabled   = !haveTune || playState !== 'idle';
+  btnPause.disabled  = playState !== 'playing';
+  btnResume.disabled = playState !== 'paused';
+  btnStop.disabled   = playState === 'idle';
+}
+
+btnPlay.addEventListener('click', startPlayback);
+btnPause.addEventListener('click', pause);
+btnResume.addEventListener('click', resume);
+btnStop.addEventListener('click', stop);
+
+// ===== UI: tune file loading =====
+
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('file-input');
+const tuneName = document.getElementById('tune-name');
+
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+});
+fileInput.addEventListener('change', (e) => {
+  const f = e.target.files[0];
+  if (f) loadFile(f);
+});
+
+['dragenter','dragover'].forEach(ev => {
+  dropzone.addEventListener(ev, (e) => {
+    e.preventDefault(); e.stopPropagation();
+    dropzone.classList.add('hover');
+  });
+});
+['dragleave','drop'].forEach(ev => {
+  dropzone.addEventListener(ev, (e) => {
+    e.preventDefault(); e.stopPropagation();
+    dropzone.classList.remove('hover');
+  });
+});
+dropzone.addEventListener('drop', (e) => {
+  const f = e.dataTransfer.files[0];
+  if (f) loadFile(f);
+});
+
+function loadFile(f) {
+  const reader = new FileReader();
+  reader.onload = () => loadTuneContent(f.name, reader.result);
+  reader.readAsText(f);
+}
+
+function loadTuneContent(name, text) {
+  currentTuneText = text;
+  currentTuneName = name;
+  tuneName.textContent = name;
+  const notes = parseWbg(text);
+  setStatus(`Loaded ${notes.length} notes.`);
+  updateButtons();
+  // Highlight in picker list if present
+  document.querySelectorAll('.picker-item').forEach(el => {
+    el.classList.toggle('selected', el.dataset.name === name);
+  });
+}
+
+// ===== UI: tune picker (uses embedded tune bundle) =====
+// Deferred to DOMContentLoaded because the <script id="tune-bundle"> tag
+// lives at the end of the document, after this script runs.
+
+function initTunePicker() {
+  const el = document.getElementById('tune-bundle');
+  let TUNES = {};
+  if (el) {
+    // Strip the <!-- BUNDLE_START --> / <!-- BUNDLE_END --> markers — they
+    // live inside the script tag's text content and would break JSON.parse.
+    const txt = el.textContent.replace(/<!--[\s\S]*?-->/g, '').trim();
+    if (txt) {
+      try { TUNES = JSON.parse(txt); }
+      catch (e) { console.error('tune bundle parse error', e); }
+    }
+  }
+  const tuneNames = Object.keys(TUNES).sort();
+
+  const pickerList = document.getElementById('picker-list');
+  const pickerSearch = document.getElementById('picker-search');
+  const pickerCount = document.getElementById('picker-count');
+  const pickerPanel = document.getElementById('picker-panel');
+
+  if (tuneNames.length === 0) {
+    pickerPanel.style.display = 'none';
+    return;
+  }
+
+  tuneNames.forEach(name => {
+    const item = document.createElement('div');
+    item.className = 'picker-item';
+    item.dataset.name = name;
+    item.textContent = name.replace(/\.wbg$/i, '');
+    item.addEventListener('click', () => loadTuneContent(name, TUNES[name]));
+    pickerList.appendChild(item);
+  });
+
+  function updatePickerCount() {
+    const visible = pickerList.querySelectorAll('.picker-item:not(.hidden)').length;
+    pickerCount.textContent = visible === tuneNames.length
+      ? `${tuneNames.length} tunes`
+      : `${visible} of ${tuneNames.length}`;
+  }
+  updatePickerCount();
+
+  pickerSearch.addEventListener('input', () => {
+    const q = pickerSearch.value.trim().toLowerCase();
+    pickerList.querySelectorAll('.picker-item').forEach(el => {
+      const match = !q || el.dataset.name.toLowerCase().includes(q);
+      el.classList.toggle('hidden', !match);
+    });
+    updatePickerCount();
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTunePicker);
+} else {
+  initTunePicker();
+}
+
+// ===== UI: tempo sliders =====
+
+const slMelody = document.getElementById('sl-melody');
+const slGrace  = document.getElementById('sl-grace');
+const valMelody = document.getElementById('val-melody');
+const valGrace  = document.getElementById('val-grace');
+
+const valBpm = document.getElementById('val-bpm');
+const valGraceMs = document.getElementById('val-grace-ms');
+
+function updateTempoReadout() {
+  // Quarter note (length=48) duration in ms = (48 * melody) / TIME_SCALE
+  const quarterMs = (48 * melodyTempo) / TIME_SCALE;
+  const bpm = Math.round(60000 / quarterMs);
+  valBpm.textContent = `≈ ${bpm} bpm`;
+  // Gracenote duration in ms = (grace * 2) / TIME_SCALE
+  const graceMs = (graceTempo * 2) / TIME_SCALE;
+  valGraceMs.textContent = `≈ ${Math.round(graceMs)} ms`;
+}
+
+slMelody.value = melodyTempo;
+slGrace.value  = graceTempo;
+valMelody.textContent = melodyTempo;
+valGrace.textContent  = graceTempo;
+updateTempoReadout();
+
+slMelody.addEventListener('input', () => {
+  melodyTempo = +slMelody.value;
+  valMelody.textContent = melodyTempo;
+  updateTempoReadout();
+  localStorage.setItem('wbg.melody', melodyTempo);
+});
+slGrace.addEventListener('input', () => {
+  graceTempo = +slGrace.value;
+  valGrace.textContent = graceTempo;
+  updateTempoReadout();
+  localStorage.setItem('wbg.grace', graceTempo);
+});
+
+// Waveform radios
+document.querySelectorAll('#wave-select input[name=wave]').forEach(r => {
+  r.checked = (r.value === waveform);
+  r.addEventListener('change', () => {
+    if (!r.checked) return;
+    waveform = r.value;
+    localStorage.setItem('wbg.wave', waveform);
+    if (oscillator) oscillator.type = waveform;
+  });
+});
+
+// ===== UI: chanter tuning =====
+
+function loadChanter() {
+  try {
+    const saved = localStorage.getItem('wbg.chanter');
+    if (saved) return { ...DEFAULT_CHANTER, ...JSON.parse(saved) };
+  } catch (e) { /* ignore */ }
+  return { ...DEFAULT_CHANTER };
+}
+
+function saveChanter() {
+  localStorage.setItem('wbg.chanter', JSON.stringify(chanter));
+}
+
+const chanterGrid = document.getElementById('chanter-grid');
+const sliderRefs = {};
+const valRefs = {};
+
+NOTE_ORDER.forEach(n => {
+  const labelEl = document.createElement('label');
+  labelEl.textContent = NOTE_LABELS[n];
+  labelEl.style.cursor = 'pointer';
+  labelEl.title = 'Click to preview';
+  labelEl.addEventListener('click', () => previewNote(n));
+
+  const slider = document.createElement('input');
+  slider.type = 'range';
+  slider.min = '200';
+  slider.max = '1500';
+  slider.step = '1';
+  slider.value = chanter[n];
+
+  const valEl = document.createElement('span');
+  valEl.className = 'val';
+  valEl.textContent = chanter[n];
+
+  slider.addEventListener('input', () => {
+    const v = +slider.value;
+    chanter[n] = v;
+    valEl.textContent = v;
+    cascadeFrom(n, v);
+    saveChanter();
+    previewNote(n);
+  });
+  // Stop preview when user releases the slider
+  slider.addEventListener('change', () => {
+    if (playState === 'idle') noteOff();
+  });
+
+  chanterGrid.append(labelEl, slider, valEl);
+  sliderRefs[n] = slider;
+  valRefs[n] = valEl;
+});
+
+function cascadeFrom(changed, value) {
+  // Walk upward from the changed note, applying the interval ratios.
+  const idx = NOTE_ORDER.indexOf(changed);
+  let prev = value;
+  for (let i = idx; i < SCALE_RATIOS.length; i++) {
+    const [lo, hi, ratio] = SCALE_RATIOS[i];
+    const next = Math.round(prev * ratio);
+    chanter[hi] = next;
+    sliderRefs[hi].value = next;
+    valRefs[hi].textContent = next;
+    prev = next;
+  }
+}
+
+function previewNote(n) {
+  if (playState !== 'idle') return;
+  noteOn(chanter[n]);
+  clearTimeout(previewNote._t);
+  previewNote._t = setTimeout(noteOff, 300);
+}
+
+document.getElementById('btn-reset-chanter').addEventListener('click', () => {
+  chanter = { ...DEFAULT_CHANTER };
+  NOTE_ORDER.forEach(n => {
+    sliderRefs[n].value = chanter[n];
+    valRefs[n].textContent = chanter[n];
+  });
+  saveChanter();
+});
+
+// ===== Init =====
+
+updateButtons();
+
+// ===== Tests (only run with ?test in URL) =====
+
+function eq(a, b) {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
+function runTests() {
+  const tests = [
+    // --- basic parsing ---
+    {
+      name: 'parse: single comma-separated pair',
+      fn: () => eq(parseWbg('a,48'), [['a', 48]]),
+    },
+    {
+      name: 'parse: multiple pairs',
+      fn: () => eq(parseWbg('a,48,b,24'), [['a', 48], ['b', 24]]),
+    },
+    {
+      name: 'parse: newline as delimiter',
+      fn: () => eq(parseWbg('a,48\nb,24'), [['a', 48], ['b', 24]]),
+    },
+    {
+      name: 'parse: whitespace around tokens ignored',
+      fn: () => eq(parseWbg('  a , 48 '), [['a', 48]]),
+    },
+    {
+      name: 'parse: space-only delimiters (2007 format)',
+      fn: () => eq(parseWbg('a 48 b 24'), [['a', 48], ['b', 24]]),
+    },
+    {
+      name: 'parse: mixed comma/space/newline delimiters',
+      fn: () => eq(parseWbg('a,48\nb 24, c,12'), [['a',48],['b',24],['c',12]]),
+    },
+    {
+      name: 'parse: rest note z',
+      fn: () => eq(parseWbg('z,48'), [['z', 48]]),
+    },
+    {
+      name: 'parse: gracenote (length 0)',
+      fn: () => eq(parseWbg('G,0,a,48'), [['G', 0], ['a', 48]]),
+    },
+    {
+      name: 'parse: trailing whitespace tolerated',
+      fn: () => eq(parseWbg('a,48\n\n'), [['a', 48]]),
+    },
+    {
+      name: 'parse: case-sensitive note names (G ≠ g)',
+      fn: () => eq(parseWbg('G,0,g,24'), [['G', 0], ['g', 24]]),
+    },
+    {
+      name: 'parse: real fragment from MINSTRELBOY.WBG',
+      fn: () => {
+        const out = parseWbg('G,0,a,72,b,24');
+        return eq(out, [['G',0],['a',72],['b',24]]);
+      },
+    },
+
+    // --- ornament expansion (windbag2.perl) ---
+    {
+      name: 'expand: gg → high-G gracenote',
+      fn: () => eq(parseWbg('gg a 48'), [['G',0],['a',48]]),
+    },
+    {
+      name: 'expand: tg → high-A gracenote',
+      fn: () => eq(parseWbg('tg a 48'), [['A',0],['a',48]]),
+    },
+    {
+      name: 'expand: dbc → G,c,d doubling',
+      fn: () => eq(parseWbg('dbc c 48'),
+                   [['G',0],['c',0],['d',0],['c',48]]),
+    },
+    {
+      name: 'expand: tar → taorluath',
+      fn: () => eq(parseWbg('tar a 48'),
+                   [['g',0],['d',0],['g',0],['e',0],['a',48]]),
+    },
+    {
+      name: 'expand: dbhg expands as one ornament (not dbb partial-match)',
+      fn: () => eq(parseWbg('dbhg c 24'),
+                   [['G',0],['f',0],['c',24]]),
+    },
+    {
+      name: 'expand: hdbf expands as one ornament (not h + dbf)',
+      fn: () => eq(parseWbg('hdbf f 72'),
+                   [['f',0],['G',0],['f',72]]),
+    },
+    {
+      name: 'expand: bg → B gracenote',
+      fn: () => eq(parseWbg('gg bg cg b 96'),
+                   [['G',0],['b',0],['c',0],['b',96]]),
+    },
+    {
+      name: 'expand: hvthrd (6-char ornament, heavy throw)',
+      fn: () => eq(parseWbg('hvthrd a 24'),
+                   [['g',0],['d',0],['g',0],['c',0],['a',24]]),
+    },
+    {
+      name: 'expand: multiple ornaments in sequence',
+      fn: () => eq(parseWbg('gg dbc c 48'),
+                   [['G',0],['G',0],['c',0],['d',0],['c',48]]),
+    },
+    {
+      name: 'expand: real Irish1.wbg fragment',
+      fn: () => eq(parseWbg('gg a 36 b 12'),
+                   [['G',0],['a',36],['b',12]]),
+    },
+    {
+      name: 'expand: strla strike on A',
+      fn: () => eq(parseWbg('strla e 24'),
+                   [['a',0],['e',24]]),
+    },
+  ];
+
+  const resultsEl = document.getElementById('test-results');
+  const summaryEl = document.getElementById('test-summary');
+  let passed = 0, failed = 0;
+
+  for (const t of tests) {
+    let ok = false, err = null;
+    try { ok = t.fn() === true; }
+    catch (e) { err = e.message; }
+
+    const row = document.createElement('div');
+    row.className = 'test-row ' + (ok ? 'pass' : 'fail');
+    row.innerHTML = `
+      <div class="icon ${ok ? 'pass' : 'fail'}">${ok ? '✓' : '✗'}</div>
+      <div>${t.name}${err ? `<div class="err">${err}</div>` : ''}</div>
+    `;
+    resultsEl.appendChild(row);
+    ok ? passed++ : failed++;
+  }
+
+  summaryEl.innerHTML = failed === 0
+    ? `<span class="ok">✓ all ${passed} tests passed</span>`
+    : `<span class="fail">✗ ${failed} failed</span> · <span class="ok">${passed} passed</span>`;
+}
+
+if (new URLSearchParams(location.search).has('test')) {
+  document.body.classList.add('test-mode');
+  runTests();
+}
+</script>
+
+<script type="application/json" id="tune-bundle"><!-- BUNDLE_START -->{"79ths_farewell_to_gibraltar.wbg":"G,0,c,18,d,6\nG,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24\nG,0,a,48,g,0,d,0,g,0,e,0,a,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,G,0,e,18,d,6\nG,0,c,0,d,0,c,24,G,0,b,24,g,0,d,0,g,0,e,0,b,24,G,0,c,18,d,6\nG,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24\nG,0,a,48,g,0,d,0,g,0,e,0,a,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24\nG,0,c,18,d,6\nG,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24\nG,0,a,48,g,0,d,0,g,0,e,0,a,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,G,0,e,18,d,6\nG,0,c,0,d,0,c,24,G,0,b,24,g,0,d,0,g,0,e,0,b,24,G,0,c,18,d,6\nG,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24\nG,0,a,48,g,0,d,0,g,0,e,0,a,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24\nA,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,f,6,A,18,e,18,c,6,G,0,b,6,d,0,b,18,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,f,0,G,0,f,24,G,0,b,24,g,0,d,0,g,0,e,0,b,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,f,6,A,18,e,18,c,6,G,0,b,6,d,0,b,18,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24\nA,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,f,6,A,18,e,18,c,6,G,0,b,6,d,0,b,18,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,f,0,G,0,f,24,G,0,b,24,g,0,d,0,g,0,e,0,b,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,f,6,A,18,e,18,c,6,G,0,b,6,d,0,b,18,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24\nG,0,c,0,d,0,c,18,b,6\nG,0,a,36,b,12,g,0,d,0,g,0,c,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,b,6,d,0,b,18,d,0,c,18,b,6\nG,0,a,18,b,6,G,0,c,18,d,6,G,0,e,18,f,6,G,0,e,18,c,6\nG,0,f,0,G,0,f,24,e,0,b,24,g,0,d,0,g,0,e,0,b,24,G,0,c,0,d,0,c,18,b,6\nG,0,a,36,b,12,g,0,d,0,g,0,c,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,b,6,d,0,b,18,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24\nG,0,c,0,d,0,c,18,b,6\nG,0,a,36,b,12,g,0,d,0,g,0,c,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,b,6,d,0,b,18,d,0,c,18,b,6\nG,0,a,18,b,6,G,0,c,18,d,6,G,0,e,18,f,6,G,0,e,18,c,6\nG,0,f,0,G,0,f,24,e,0,b,24,g,0,d,0,g,0,e,0,b,24,G,0,c,0,d,0,c,18,b,6\nG,0,a,36,b,12,g,0,d,0,g,0,c,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,b,6,d,0,b,18,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24\nG,0,c,18,d,6\nG,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24\nG,0,e,48,g,0,d,0,g,0,e,24,A,24\nf,0,G,0,f,36,e,12,G,0,f,24,A,24\nf,0,G,0,f,36,e,12,G,0,c,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,c,0,d,0,c,24,G,0,b,18,d,0,a,6\nG,0,b,6,d,0,a,18,G,0,b,18,c,6,G,0,e,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24\nG,0,c,18,d,6\nG,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24\nG,0,e,48,g,0,d,0,g,0,e,24,A,24\nf,0,G,0,f,36,e,12,G,0,f,24,A,24\nf,0,G,0,f,36,e,12,G,0,c,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,c,0,d,0,c,24,G,0,b,18,d,0,a,6\nG,0,b,6,d,0,a,18,G,0,b,18,c,6,G,0,e,24,A,24\nf,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6\nG,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24","blue_bells_of_scotland.wbg":"e 48\ndbha A 96 G 48 f 48\ngg e 96 f 48 G 24 A 24\nc 48 strlg c 48 fg d 48 b 48\nstrlg a 144\ne 48\ndbha A 96 G 48 f 48\ngg e 96 f 48 G 24 A 24\nc 48 strlg c 48 fg d 48 b 48\nstrlg a 144\ne 48\ngg c 48 a 48 gg c 48 e 48\ndbha A 96 f 48 G 24 A 24\nG 48 e 48 gg f 48 d 48\ne 96 gg f 48 G 48\ndbha A 96 G 48 f 48\ngg e 96 f 48 G 24 A 24\nc 48 strlg c 48 fg d 48 b 48\nstrlg a 144","brian_boru_march.wbg":"f 12 e 12\ngg d 36 b 12 eg b 24 dbb b 48 f 12 e 12\ngg d 36 b 12 eg b 24 dbb b 48 e 12 d 12\ndg cg dg c 36 dg a 12 eg a 24 gg strla strlg a 48 e 12 d 12\ndg cg dg c 36 dg a 12 eg a 24 gg strla strlg a 48 f 12 e 12\ngg d 36 b 12 eg b 24 dbb b 48 f 12 e 12\ngg d 36 b 12 eg b 24 dbb b 48 a 24\ngg strla dg a 36 eg c 12 e 24 dbf f 48 e 24\ngg d 36 b 12 eg b 24 dbb b 48\ngg d 36 b 12 eg b 24 dbb b 48 f 12 e 12\ngg d 36 b 12 eg b 24 dbb b 48 e 12 d 12\ndg cg dg c 36 dg a 12 eg a 24 gg strla strlg a 48 e 12 d 12\ndg cg dg c 36 dg a 12 eg a 24 gg strla strlg a 48 f 12 e 12\ngg d 36 b 12 eg b 24 dbb b 48 f 12 e 12\ngg d 36 b 12 eg b 24 dbb b 48 a 24\ngg strla dg a 36 eg c 12 e 24 dbf f 48 e 24\ngg d 36 b 12 eg b 24 dbb b 48\nstrlg a 24\ngg strla dg a 24 c 24 e 24 dbf f 48 e 24\ndbf f 48 e 24 dbf f 48 e 24\ngg strla dg a 24 b 24 c 24 dbe e 48 c 24\ndbe e 48 c 24 dbe e 48 c 24\ngg strla dg a 24 c 24 e 24 dbf f 48 e 24\ndbf f 48 e 24 dbf f 48 e 24\ngg strla dg a 24 c 24 e 24 dbf f 48 e 24\ngg d 24 b 24 eg b 24 dbb b 48\ngg strla dg a 24 c 24 e 24 dbf f 48 e 24\ndbf f 48 e 24 dbf f 48 e 24\ngg strla dg a 24 b 24 c 24 dbe e 48 c 24\ndbe e 48 c 24 dbe e 48 c 24\ngg strla dg a 24 c 24 e 24 dbf f 48 e 24\ndbf f 48 e 24 dbf f 48 e 24\ngg strla dg a 24 c 24 e 24 dbf f 48 e 24\ngg d 24 b 24 eg b 24 dbb b 48\nstrlg b 12 c 12\nhvthrd d 36 c 12 b 24 dbf f 48 b 24\nhvthrd d 36 c 12 b 24 dbf f 48 a 24\ndg cg dg c 36 b 12 dg a 24 dbe e 48 a 24\ndg cg dg c 36 b 12 dg a 24 dbe e 48 b 24\nhvthrd d 36 c 12 b 24 dbf f 48 b 24\nhvthrd d 36 c 12 b 24 dbf f 48 a 24\ngg strla dg a 36 eg c 12 e 24 dbf f 48 e 24\ngg d 36 b 12 eg b 24 dbb b 48\nhvthrd d 36 c 12 b 24 dbf f 48 b 24\nhvthrd d 36 c 12 b 24 dbf f 48 a 24\ndg cg dg c 36 b 12 dg a 24 dbe e 48 a 24\ndg cg dg c 36 b 12 dg a 24 dbe e 48 b 24\nhvthrd d 36 c 12 b 24 dbf f 48 b 24\nhvthrd d 36 c 12 b 24 dbf f 48 a 24\ngg strla dg a 36 eg c 12 e 24 dbf f 48 e 24\ngg d 36 b 12 eg b 24 dbb b 48","embellishments.wbg":"gg a 24 dbb b 24 dbc c 24 dbe e 24\ndbf f 24 dbhg G 24 dbha A 48\ntar a 48 grp a 48\nbrl a 48 hvthrd d 48\ngstrd d 48 gg a 96","epitaph_of_seikilos.wbg":"hvthrd d 24 A 48 grp A 72\nf 24 G 24 A 24 fg dbhg G 96\nf 24 G 24 A 24 G 24 f 24\ne 24 hvthrd d 48 e 24 dbc c 48\nd 24 f 24 A 24 G 24 f 24 G 24\nf 24 hvthrd d 48 e 24 dbc c 48\nd 24 f 24 e 24 G 24 A 24 f 24\nd 24 hvthrd d 48 gg d 12 b 12 strlg a 48","fanny_power.wbg":"gg a 24\nhvthrd d 48 eg a 24 hvthrd d 36 e 12 gg f 24\ndbhg G 48 f 24 dbe e 48 d 24\ngg dg eg d 24 c 24 eg b 24 strlg a 48 brl a 24\ndbc c 36 b 12 gg c 18 d 6 dbe e 48 dbhg G 24\ntg f 36 e 12 d 24 gg f 36 G 12 A 24\nd 36 G 12 f 24 dbe e 48 d 24\ngg dg eg d 24 c 24 eg b 24 strlg a 36 d 12 gg c 24\nhvthrd d 72 gg dg strlg d 48\ngg a 24\nhvthrd d 48 eg a 24 hvthrd d 36 e 12 gg f 24\ndbhg G 48 f 24 dbe e 48 d 24\ngg dg eg d 24 c 24 eg b 24 strlg a 48 brl a 24\ndbc c 36 b 12 gg c 18 d 6 dbe e 48 dbhg G 24\ntg f 36 e 12 d 24 gg f 36 G 12 A 24\nd 36 G 12 f 24 dbe e 48 d 24\ngg dg eg d 24 c 24 eg b 24 strlg a 36 d 12 gg c 24\nhvthrd d 72 gg dg strlg d 48\ngg f 36 G 12\ndbha A 24 f 18 G 6 A 24 gg A 24 f 18 G 6 A 24\nd 36 f 12 d 24 gg dg eg d 24 f 24 d 24\ndbhg G 24 e 18 f 6 G 24 fg G 24 e 18 f 6 G 24\ncg dg c 36 e 12 c 24 dbc c 24 e 24 c 24\ntg f 36 e 12 d 24 gg f 36 G 12 A 24\nb 36 G 12 f 24 dbe e 48 d 24\ngg dg eg d 24 c 24 eg b 24 strlg a 36 d 12 gg c 24\nhvthrd d 72 gg dg strlg d 24\ngg f 36 G 12\ndbha A 24 f 18 G 6 A 24 gg A 24 f 18 G 6 A 24\nd 36 f 12 d 24 gg dg eg d 24 f 24 d 24\ndbhg G 24 e 18 f 6 G 24 fg G 24 e 18 f 6 G 24\ncg dg c 36 e 12 c 24 dbc c 24 e 24 c 24\ntg f 36 e 12 d 24 gg f 36 G 12 A 24\nb 36 G 12 f 24 dbe e 48 d 24\ngg dg eg d 24 c 24 eg b 24 strlg a 36 d 12 gg c 24\nhvthrd d 72 gg dg strlg d 24\n","marquis_of_huntly.wbg":"a 24\nhvthrd d 48 gg f 36 d 12 dbhg G 36 e 12 gg f 36 d 12\ngg b 48 dbe e 36 d 12 dbc c 36 b 12 gg a 36 b 12\nhvthrd d 48 gg f 36 d 12 dbhg G 36 e 12 gg f 36 d 12\ngg b 36 e 12 gg c 16 b 16 a 16 strlg dg dg cg d 48 gg dg cg d 24\na 24\nhvthrd d 48 gg f 36 d 12 dbhg G 36 e 12 gg f 36 d 12\ngg b 48 dbe e 36 d 12 dbc c 36 b 12 gg a 36 b 12\nhvthrd d 48 gg f 36 d 12 dbhg G 36 e 12 gg f 36 d 12\ngg b 36 e 12 gg c 16 b 16 a 16 strlg dg dg cg d 48 gg dg cg d 24\nb 24\ngg a 48 tar a 36 g 12 gg a 36 b 12 hvthrd d 36 e 12\ndbhg G 36 e 12 gg f 36 d 12 dbe e 36 d 12 gg b 12 d 36\ngg a 48 tar a 36 g 12 gg a 36 b 12 hvthrd d 36 f 12\nA 36 f 12 gg e 36 f 12 hvthrd d 48 gg dg cg d 24\nb 24\ngg a 48 tar a 36 g 12 gg a 36 b 12 hvthrd d 36 e 12\ndbhg G 36 e 12 gg f 36 d 12 dbe e 36 d 12 gg b 12 d 36\ngg a 48 tar a 36 g 12 gg a 36 b 12 hvthrd d 36 f 12\nA 36 f 12 gg e 36 f 12 hvthrd d 48 gg dg cg d 24\nA 24\nf 48 gg f 48 dbhg G 36 e 12 gg f 36 d 12\ngg b 48 dbe e 36 d 12 dbc c 36 b 12 gg a 36 A 12\nf 48 gg f 48 dbhg G 36 e 12 gg f 36 d 12\ngg b 36 e 12 gg c 16 b 16 a 16 strlg dg dg cg d 48 gg dg cg d 24\nA 24\nf 48 gg f 48 dbhg G 36 e 12 gg f 36 d 12\ngg b 48 dbe e 36 d 12 dbc c 36 b 12 gg a 36 A 12\nf 48 gg f 48 dbhg G 36 e 12 gg f 36 d 12\ngg b 36 e 12 gg c 16 b 16 a 16 strlg dg dg cg d 48 gg dg cg d 24\nb 24\ngg a 36 b 12 gg g 36 b 12 gg a 36 b 12 hvthrd d 36 e 12\ndbhg G 36 e 12 gg f 36 d 12 dbe e 36 d 12 gg b 12 d 36\ngg a 36 b 12 gg g 36 b 12 gg a 36 b 12 hvthrd d 36 f 12\nA 36 f 12 gg e 36 f 12 hvthrd d 48 gg dg cg d 24\nb 24\ngg a 36 b 12 gg g 36 b 12 gg a 36 b 12 hvthrd d 36 e 12\ndbhg G 36 e 12 gg f 36 d 12 dbe e 36 d 12 gg b 12 d 36\ngg a 36 b 12 gg g 36 b 12 gg a 36 b 12 hvthrd d 36 f 12\nA 36 f 12 gg e 36 f 12 hvthrd d 48 gg dg cg d 24","minstrel_boy.wbg":"e 24\ngg a 72 b 24 hvthrd d 24 c 24 b 24 a 24\ngg c 48 e 48 dbha A 48 G 36 A 12\nf 48 e 48 gg c 36 d 12 e 24 c 24\ngg b 96 strlg a 48 e 48\ngg a 72 b 24 hvthrd d 24 c 24 b 24 a 24\ngg c 48 e 48 dbha A 48 G 36 A 12\nf 48 e 48 gg c 36 d 12 e 24 c 24\ngg b 96 strlg a 48 e 48\ndbha A 48 G 48 tg f 72 G 12 A 12\nG 48 f 48 gg e 72 strlg e 24\ntg f 72 c 24 strlg c 48 e 48\ngg f 72 G 24 dbha A 48 grp A 48\ngg a 72 b 24 hvthrd d 24 c 24 b 24 a 24\ngg c 48 e 48 dbha A 48 G 36 A 12\nf 48 e 48 gg c 36 d 12 e 24 c 24\ngg b 96 strlg a 72","red_fox.wbg":"e 24 c 24\ngg a 48 strlg a 24 b 24 gg c 48 strlg c 24 d 24\ngg e 48 strlg e 48 hvthrd d 48 gg c 24 d 24\ngg e 48 strlg e 24 f 24 dbc c 48 a 48\ngg bg cg b 96 strlg a 48\ne 24 c 24\ngg a 48 strlg a 24 b 24 gg c 48 strlg c 24 d 24\ngg e 48 strlg e 48 hvthrd d 48 gg c 24 d 24\ngg e 48 strlg e 24 f 24 dbc c 48 a 48\ngg bg cg b 96 strlg a 48\nc 24 e 24\ndbha A 48 gg A 48 G 48 hdbf f 24 e 24\ngg f 48 gg e 24 c 24 dbe e 48 gg c 24 b 24\ngg a 48 b 24 c 24 dbb b 48 a 24 dg c 24\ndbe e 96 gg c 48 e 48\ndbha A 48 gg A 48 G 48 hdbf f 24 e 24\ngg f 48 gg e 24 c 24 dbe e 48 gg c 24 b 24\ngg a 48 b 24 c 24 dbb b 48 gg a 24 c 24\ndbb b 96 strlg a 48","robin_adair.wbg":"gg a 96 gg b 48 gg c 48\nhvthrd d 72 e 24 gg f 96\ngg a 24 d 72 gg b 24 d 72\ngg c 24 e 72 hvthrd d 96\ngg a 96 gg b 48 gg c 48\nhvthrd d 72 e 24 gg f 96\ngg a 24 d 72 gg b 24 d 72\ngg c 24 e 72 hvthrd d 96\ngg f 96 gg f 48 eg f 48\ndbha A 72 a 24 brl a 96\ngg f 72 eg f 24 A 24 G 24 tg e 24 c 24\nhvthrd d 72 eg b 24 strlg a 96\ndbha A 72 gg A 24 G 24 f 24 gg e 24 d 24\ngg dg strlg d 72 e 24 gg f 96\ngg a 24 d 72 gg b 24 d 72\ngg c 24 e 72 hvthrd d 96","rowan_tree.wbg":"gg a 36 b 12\ngrp c 96 dbc c 48 eg b 48\ndg c 24 e 72 strla e 48 dbha A 48\nhdbf f 72 e 24 gg f 48 A 48\nhdbf f 48 e 48 strla e 48 gg a 36 b 12\ngrp c 96 dbc c 48 eg b 48\ndg c 24 e 72 gg f 72 e 24\ndbe e 24 c 72 gg b 72 strlg a 24\ngg a 96 brl a 72\ne 24\ndbe e 48 A 48 gg A 72 G 24\ntg G 48 f 48 eg f 48 A 48\neg fg e 72 f 24 gg f 24 e 24 gg d 24 c 24\ngg c 72 d 12 c 12 b 48 gg a 36 b 12\ngrp c 96 dbc c 48 eg b 48\ndg c 24 e 72 gg f 72 e 24\ndbe e 24 c 72 gg b 72 strlg a 24\ngg a 96 brl a 72","scale.wbg":"gg g 24 gg a 24 gg b 24 gg c 24\ngg d 24 gg e 24 gg f 24 tg G 24\nA 48 tg G 24 f 24 gg e 24\ngg d 24 gg c 24 gg b 24 gg a 24\ngg g 96","star_of_the_county_down.wbg":"gg g 24\ngg b 48 strlg b 24 gg b 36 a 12 b 24\nhvthrd d 48 cg d 24 dbe e 36 gg d 12 e 24\ndbf f 36 e 12 d 24 dbb b 36 a 12 g 24\ngg a 72 brl a 48 g 24\ngg b 48 strlg b 24 gg b 36 a 12 b 24\nhvthrd d 48 cg d 24 dbe e 36 gg d 12 e 24\ndbf f 36 e 12 d 24 dbb b 48 a 24\ngg b 72 tar b 48\ngg g 24\ngg b 48 strlg b 24 gg b 36 a 12 b 24\nhvthrd d 48 cg d 24 dbe e 36 gg d 12 e 24\ndbf f 36 e 12 d 24 dbb b 36 a 12 g 24\ngg a 72 brl a 48 g 24\ngg b 48 strlg b 24 gg b 36 a 12 b 24\nhvthrd d 48 cg d 24 dbe e 36 gg d 12 e 24\ndbf f 36 e 12 d 24 dbb b 48 a 24\ngg b 72 tar b 48\ngg f 24\ndbha A 48 gg A 24 hdbf f 36 e 12 d 24\ndbe e 36 a 12 e 24 gg e 36 gg d 12 e 24\ndbf f 36 e 12 d 24 dbb b 36 a 12 g 24\ngg a 72 brl a 36 d 12 c 24\ngg b 48 strlg b 24 gg b 36 a 12 b 24\nhvthrd d 48 cg d 24 dbe e 36 gg d 12 e 24\ndbf f 36 e 12 d 24 dbb b 48 a 24\ngg b 72 tar b 48\ngg f 24\ndbha A 48 gg A 24 hdbf f 36 e 12 d 24\ndbe e 36 a 12 e 24 gg e 36 gg d 12 e 24\ndbf f 36 e 12 d 24 dbb b 36 a 12 g 24\ngg a 72 brl a 36 d 12 c 24\ngg b 48 strlg b 24 gg b 36 a 12 b 24\nhvthrd d 48 cg d 24 dbe e 36 gg d 12 e 24\ndbf f 36 e 12 d 24 dbb b 48 a 24\ngg b 72 tar b 48\n","thady_you_gander.wbg":"gg d 12 e 12\ndbf f 48        d 24     dbe e 48               d 24\ndbf f 48        d 24     dbe e 48               d 24\ngg b 36 e 12 gg e 24                    gg e 36 strlg d 12 strlg e 24\ngg b 36 e 12 gg e 24           dbe e 48      gg d 12 e 12\ndbf f 48        d 24     dbe e 48               d 24\ndbf f 48        d 24     dbe e 48               d 24\ngg a 36 d 12 gg d 24                    gg d 36 strlg c 12 strlg d 24\ngg a 36 d 12 gg d 24                          hvthrd d 48\ndbf f 48        d 24     dbe e 48               d 24\ndbf f 48        d 24     dbe e 48               d 24\ngg b 36 e 12 gg e 24                    gg e 36 strlg d 12 strlg e 24\ngg b 36 e 12 gg e 24           dbe e 48      gg d 12 e 12\ndbf f 48        d 24     dbe e 48               d 24\ndbf f 48        d 24     dbe e 48               d 24\ngg a 36 d 12 gg d 24                    gg d 36 strlg c 12 strlg d 24\ngg a 36 d 12 gg d 24                          hvthrd d 48\nA 24\ndbf f 36 G 12 A 24                dbe e 36 f 12 G 24\ndbf f 36 G 12 A 24       dbe e 48               d 24\ngg b 36 e 12 gg e 24                    gg e 36 strlg d 12 strlg e 24\ngg b 36 e 12 gg e 24           dbe e 48               A 24\ndbf f 36 G 12 A 24                dbe e 36 f 12 G 24\ndbf f 36 G 12 A 24       dbe e 48               d 24\ngg a 36 d 12 gg d 24                    gg d 36 strlg c 12 strlg d 24\ngg a 36 d 12 gg d 24                          hvthrd d 48\ndbf f 36 G 12 A 24                dbe e 36 f 12 G 24\ndbf f 36 G 12 A 24       dbe e 48               d 24\ngg b 36 e 12 gg e 24                    gg e 36 strlg d 12 strlg e 24\ngg b 36 e 12 gg e 24           dbe e 48               A 24\ndbf f 36 G 12 A 24                dbe e 36 f 12 G 24\ndbf f 36 G 12 A 24       dbe e 48               d 24\ngg a 36 d 12 gg d 24                    gg d 36 strlg c 12 strlg d 24\ngg a 36 d 12 gg d 24                          hvthrd d 48","the_duke_of_atholls_salute.wbg":"G,0,a,24,d,0,c,72,b,48,G,0,g,12,d,0,b,72,G,0,a,48,f,0,e,0,G,0,e,0,f,48,G,0,e,96,c,24\nG,0,a,24,d,0,c,72,b,48,G,0,g,12,d,0,b,72,G,0,a,48,f,0,e,0,G,0,e,0,f,48,G,0,e,96,c,24\nG,0,b,24,d,48,c,24,G,0,a,12,d,0,c,72,G,0,b,48,A,0,G,0,A,48,f,96,b,24\nG,0,a,24,d,0,c,72,b,48,G,0,g,12,d,0,b,72,G,0,a,48,f,0,e,0,G,0,e,0,f,48,G,0,e,96,c,24\nG,0,b,24,d,48,c,24,G,0,a,12,d,0,c,72,G,0,b,48,A,0,G,0,A,48,f,96,b,24\nG,0,b,24,d,48,c,24,G,0,a,12,d,0,c,72,G,0,b,48,A,0,G,0,A,48,f,96,b,24\nG,0,a,24,d,0,c,72,b,48,G,0,g,12,d,0,b,72,G,0,a,48,f,0,e,0,G,0,e,0,f,48,G,0,e,96,c,24\nG,0,b,24,d,48,c,24,G,0,a,12,d,0,c,72,G,0,b,48,A,0,G,0,A,48,f,96,b,24","the_eagles_whistle.wbg":"gg a 24 b 24\ndbc c 48     gg e 24 c 24             dbb b 24 a 24\ndbc c 48     gg e 24 c 24             dbb b 24 a 24\ndbb b 48     dbb b 24 c 24     dbb b 24 a 24\ndbb b 48     dbb b 24 c 24     dbb b 24 a 24\ndbc c 48     gg e 24 c 24             dbb b 24 a 24\ndbc c 48     gg e 24 c 24             dbb b 24 c 24\ngg strla strlg a 48     gg a 24 c 24             dbb b 24 c 24\ngg strla strlg a 48     gg a 24 c 24             dbb b 24 a 24\ndbc c 48     gg e 24 c 24             dbb b 24 a 24\ndbc c 48     gg e 24 c 24             dbb b 24 a 24\ndbb b 48     dbb b 24 c 24     dbb b 24 a 24\ndbb b 48     dbb b 24 c 24     dbb b 24 a 24\ndbc c 48     gg e 24 c 24             dbb b 24 a 24\ndbc c 48     gg e 24 c 24             dbb b 24 c 24\ngg strla strlg a 48     gg a 24 c 24             dbb b 24 c 24\ngg strla strlg a 48     gg a 24 c 24             dbb b 24 a 24\ndbf f 48     dbe e 24 c 24     dbha A 24 e 24\ndbf f 48     dbe e 24 c 24     dbb b 24 a 24\ndbb b 48     dbb b 24 c 24     dbb b 24 a 24\ndbb b 48     dbb b 24 c 24     dbb b 24 a 24\ndbf f 48     dbe e 24 c 24     dbha A 24 e 24\ndbf f 48     dbe e 24 c 24     dbb b 24 c 24\ngg strla strlg a 48     gg a 24 c 24             dbb b 24 c 24\ngg strla strlg a 48     gg a 24 c 24             dbb b 24 a 24\ndbf f 48     dbe e 24 c 24     dbha A 24 e 24\ndbf f 48     dbe e 24 c 24     dbb b 24 a 24\ndbb b 48     dbb b 24 c 24     dbb b 24 a 24\ndbb b 48     dbb b 24 c 24     dbb b 24 a 24\ndbf f 48     dbe e 24 c 24     dbha A 24 e 24\ndbf f 48     dbe e 24 c 24     dbb b 24 c 24\ngg strla strlg a 48     gg a 24 c 24             dbb b 24 c 24\ngg strla strlg a 48     gg a 24 c 24             dbb b 24 a 24","will_ye_no_come_back_again.wbg":"gg a 48\nhvthrd d 72 e 24 gg f 48 d 48\ngg b 24 d 72 eg a 96\ndbha A 96 grp A 48 f 48\ngg f 48 e 48 strla e 96\nhvthrd d 72 e 24 gg f 48 d 48\ngg b 24 d 72 eg a 96\ndbha A 96 grp A 48 f 48\ngg e 72 d 24 gg dg cg d 96\ngg f 48 A 48 gg A 48 grp A 48\nfg eg f 48 A 48 gg A 96\nhvthrd d 72 c 24 gg bg cg b 48 eg a 48\ndbhg G 24 f 24 gg e 24 d 24 dbe e 96\ngg f 96 gg e 48 d 48\ngg b 24 d 72 eg a 96\ndbha A 96 grp A 48 f 48\ngg e 72 d 24 gg dg cg d 96"}<!-- BUNDLE_END --></script>
+</body>
+</html>

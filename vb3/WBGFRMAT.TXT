@@ -1,0 +1,88 @@
+                               wbg Format
+                              ____________
+    
+Here is an example of the wbg format.
+
+G,0,a,48,g,0,d,0,g,0,c,0,d,96
+
+The G,0 is a high g gracenote the a,48 is a low a quarternote,
+The g,0,d,0,g,0,c,0 is the gracenotes for the double d the d,96 is a d half-note.
+
+The reason for this choice in numbers is to allow integer numbers for triplet groups.
+
+Here is the complete list of notes and their lengths;
+
+Length	Note
+____________
+0----gracenote
+3----64th
+6----32nd 
+12---16th
+24---8th
+48---4th
+96---halfnote
+192--wholenote
+
+9----dotted 32nd
+18---dotted 16th
+36---dotted 8th
+72---dotted 4th
+144--dotted halfnote
+228--dotted wholenote
+
+1----128th triplet (never used)
+2----64th triplet  (never used) 
+4----32nd triplet (never used)((I think))
+8----16th triplet I.E. three 16th triplets are equal to one 8th note
+16---8th triplet  I.E. three 8th triplets are equal to one quarternote
+32---4th triplet  I.E. three 4th triplets are equal to one halfnote
+64---half triplet I.E. three half triplets are equal on one wholenote
+
+
+Here are the notes of the chanter in my format
+
+g     low g
+a     low a
+b     b
+c     c
+d     d
+e     e
+f     f
+G     high g
+A     high a
+
+                         Writing your own wbg files
+                         ___________________________
+
+
+There are 2 possable delimiters in the wbg file.  The first is the comma.  The second is the hard return.  When writing a wbg file both can be used in the file.  Spaces are not delimiters so they can be included in the file to make separation of notes, lines, bars, and measures easier.
+
+For example: G,0,a,48,g,0,d,0,g,0,c,0,d,96 can be written
+
+G,0
+    a,48
+g,0,d,0,g,0,c,0
+    d,96
+
+I prefer to write one line per bar.  The reason being is that there is a great deal of repetition in bagpipe music writing this way makes cutting and pasting easier.
+
+There cannot be two delimiters directly following each other.
+For example:
+
+G,,0
+a,0,
+g,0
+,d,,0
+
+G,0
+
+One error is the following one comma by another.  Another is a comma followed by a hard return.  Another is a hard return followed by a comma.  And lastly the error of one hard return followed by another hard return.  This last can catch you at the end of the file since you cannot see hard returns without a hex editor.
+
+The last character(s) in the file should be the number following the delimiter after the last note in the tune.  The file should not end with a delimiter.
+
+Thanks for using this Program.
+
+Michael Carnright
+
+Any comments or suggestions can be e-mailed to (address removed)
+Any suggestions for improvement are welcome.

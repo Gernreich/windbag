@@ -1,0 +1,33 @@
+gg a 24 b 24
+dbc c 48     gg e 24 c 24             dbb b 24 a 24
+dbc c 48     gg e 24 c 24             dbb b 24 a 24
+dbb b 48     dbb b 24 c 24     dbb b 24 a 24
+dbb b 48     dbb b 24 c 24     dbb b 24 a 24
+dbc c 48     gg e 24 c 24             dbb b 24 a 24
+dbc c 48     gg e 24 c 24             dbb b 24 c 24
+gg strla strlg a 48     gg a 24 c 24             dbb b 24 c 24
+gg strla strlg a 48     gg a 24 c 24             dbb b 24 a 24
+dbc c 48     gg e 24 c 24             dbb b 24 a 24
+dbc c 48     gg e 24 c 24             dbb b 24 a 24
+dbb b 48     dbb b 24 c 24     dbb b 24 a 24
+dbb b 48     dbb b 24 c 24     dbb b 24 a 24
+dbc c 48     gg e 24 c 24             dbb b 24 a 24
+dbc c 48     gg e 24 c 24             dbb b 24 c 24
+gg strla strlg a 48     gg a 24 c 24             dbb b 24 c 24
+gg strla strlg a 48     gg a 24 c 24             dbb b 24 a 24
+dbf f 48     dbe e 24 c 24     dbha A 24 e 24
+dbf f 48     dbe e 24 c 24     dbb b 24 a 24
+dbb b 48     dbb b 24 c 24     dbb b 24 a 24
+dbb b 48     dbb b 24 c 24     dbb b 24 a 24
+dbf f 48     dbe e 24 c 24     dbha A 24 e 24
+dbf f 48     dbe e 24 c 24     dbb b 24 c 24
+gg strla strlg a 48     gg a 24 c 24             dbb b 24 c 24
+gg strla strlg a 48     gg a 24 c 24             dbb b 24 a 24
+dbf f 48     dbe e 24 c 24     dbha A 24 e 24
+dbf f 48     dbe e 24 c 24     dbb b 24 a 24
+dbb b 48     dbb b 24 c 24     dbb b 24 a 24
+dbb b 48     dbb b 24 c 24     dbb b 24 a 24
+dbf f 48     dbe e 24 c 24     dbha A 24 e 24
+dbf f 48     dbe e 24 c 24     dbb b 24 c 24
+gg strla strlg a 48     gg a 24 c 24             dbb b 24 c 24
+gg strla strlg a 48     gg a 24 c 24             dbb b 24 a 24

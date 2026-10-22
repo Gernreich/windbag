@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Win(d)Bag</title>
+<meta name="description" content="A bagpipe tune player from 1995: tunes typed as text, played through the PC speaker, now playable in a browser.">
+<style>
+:root {
+  --bg: #fcfcfb;
+  --surface: #f3f2ee;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --rule: #dddcd6;
+  --accent: #2a78d6;
+  --gold: #a8741a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1a19; --surface: #252523; --ink: #f0efec; --ink-2: #c3c2b7; --rule: #3a3a37;
+    --accent: #3987e5; --gold: #d4a14a;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1a1a19; --surface: #252523; --ink: #f0efec; --ink-2: #c3c2b7; --rule: #3a3a37;
+  --accent: #3987e5; --gold: #d4a14a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.6 ui-sans-serif, -apple-system, "Segoe UI", system-ui, sans-serif;
+}
+main { max-width: 860px; overflow-wrap: break-word; margin: 0 auto; padding: 40px 16px 64px; }
+h1 { font-size: 2.1rem; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; margin: 48px 0 8px; padding-top: 16px; border-top: 1px solid var(--rule); }
+.lede { font-size: 1.12rem; color: var(--ink-2); margin: 0 0 24px; }
+a { color: var(--accent); }
+code, pre { font: 0.9em ui-monospace, SFMono-Regular, Menlo, monospace; }
+pre { background: var(--surface); padding: 12px 14px; border-radius: 6px; overflow-x: auto; line-height: 1.45; }
+.credit { background: var(--surface); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 4px; }
+.play { display: inline-block; margin: 4px 0 8px; padding: 10px 20px; border-radius: 6px; background: var(--gold);
+  color: #1a1a19; font-weight: 650; text-decoration: none; }
+.play:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.table-wrap { overflow-x: auto; margin: 16px 0; }
+table { border-collapse: collapse; font-size: 0.92rem; width: 100%; }
+th, td { text-align: left; padding: 5px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--ink-2); font-weight: 600; }
+td.num { font-variant-numeric: tabular-nums; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+.cols > * { min-width: 0; }
+@media (max-width: 640px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+.buttons { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin: 12px 0; }
+.buttons figure { margin: 0; text-align: center; font-size: 0.8rem; color: var(--ink-2); }
+.buttons img { image-rendering: pixelated; height: 48px; display: block; margin: 0 auto 4px; }
+</style>
+</head>
+<body>
+<main>
+<h1>Win(d)Bag</h1>
+<p class="lede">A Great Highland bagpipe tune player for Windows 3.1, written in Visual
+Basic 3 between 1995 and 2000. Tunes are typed as plain text, one bar per line,
+and played on the PC speaker with the melody and gracenote speeds set separately.
+It now runs in a browser.</p>
+
+<p><a class="play" href="play.html">▶ Play the tunes</a></p>
+
+<p class="credit"><strong>Whose work this is.</strong> Win(d)Bag, its <code>.wbg</code>
+tune format, the practice-chanter tuning window and the Perl players are Michael
+Carnright's. The web edition (<code>play.html</code>) and the Python players are later
+ports of the same program. The tunes are traditional; their <code>.wbg</code>
+transcriptions are his.</p>
+
+<h2>What it did</h2>
+<p>A piper learning a tune wants to hear it slowly, but bagpipe gracenotes are
+played as fast as the fingers allow whatever the tempo. Win(d)Bag kept the two
+apart: one scroll bar for the melody's pace, another for the gracenotes, and
+both could be moved while the tune played. The time a gracenote takes is taken
+from the melody note that follows it, so very slow gracenotes eat into the
+melody, which the original README warns about. A four-count of high-G gracenotes
+sets the tempo before the tune starts, and the tune can be paused, resumed or
+stopped.</p>
+
+<div class="buttons" aria-label="The original button images">
+  <figure><img src="vb3/PLAYBLK.BMP" alt="">Play</figure>
+  <figure><img src="vb3/PAUSEBLK.BMP" alt="">Pause</figure>
+  <figure><img src="vb3/CONTBLK.BMP" alt="">Resume</figure>
+  <figure><img src="vb3/STOPBLK.BMP" alt="">Stop</figure>
+  <figure><img src="vb3/COMPCHNT.BMP" alt="">Chanter</figure>
+  <figure><img src="vb3/QUESBLK.BMP" alt="">About</figure>
+</div>
+<p style="font-size:0.85rem;color:var(--ink-2)">The button images from version 0.2, from the VB3 source.</p>
+
+<h2>Versions</h2>
+<div class="table-wrap"><table>
+<tr><th>Version</th><th>What changed</th></tr>
+<tr><td>0.2, 20&nbsp;December&nbsp;1995</td><td>Changes since the first version: the separate practice-chanter program merged into the player; word buttons replaced by images; the tune list split into one index per book the tunes were transcribed from, so a new book could be added on its own.</td></tr>
+<tr><td>0.2, 16&nbsp;September&nbsp;2000</td><td>A later build of the same version, and the source in this repository.</td></tr>
+<tr><td>Perl players</td><td><code>windbag.perl</code> plays the same files through <code>Audio::Beep</code>; <code>windbag2.perl</code> adds named embellishments, so <code>dbc</code> can be written for a doubling on C instead of its three gracenotes.</td></tr>
+<tr><td>Python players</td><td>A terminal player, a Tk window and a uilleann-pipe variant, for macOS.</td></tr>
+<tr><td>Web edition</td><td>Web Audio in one HTML file, with a square wave to sound like the PC speaker, the tunes built in and any <code>.wbg</code> file droppable on it.</td></tr>
+</table></div>
+
+<h2>The .wbg format</h2>
+<p>A tune is a list of note, length pairs separated by commas or line breaks;
+spaces are ignored, so a tune can be laid out one bar per line. A length of 0
+is a gracenote.</p>
+<pre>G,0,a,48,g,0,d,0,g,0,c,0,d,96</pre>
+<p>is a high-G gracenote on a low-A crotchet, then the four gracenotes of a
+doubling on D, then D as a minim. The original format notes give the reason for the
+odd-looking lengths: a whole note is 192, which is 3 × 64, so triplets
+come out as whole numbers too.</p>
+<div class="cols">
+<div class="table-wrap"><table>
+<tr><th>Length</th><th>Note</th></tr>
+<tr><td class="num">0</td><td>gracenote</td></tr>
+<tr><td class="num">3</td><td>64th</td></tr>
+<tr><td class="num">6</td><td>32nd</td></tr>
+<tr><td class="num">12</td><td>16th</td></tr>
+<tr><td class="num">24</td><td>8th</td></tr>
+<tr><td class="num">48</td><td>quarter</td></tr>
+<tr><td class="num">96</td><td>half</td></tr>
+<tr><td class="num">192</td><td>whole</td></tr>
+</table></div>
+<div class="table-wrap"><table>
+<tr><th>Length</th><th>Note</th></tr>
+<tr><td class="num">9, 18, 36, 72, 144</td><td>dotted 32nd to dotted half</td></tr>
+<tr><td class="num">8</td><td>16th triplet</td></tr>
+<tr><td class="num">16</td><td>8th triplet</td></tr>
+<tr><td class="num">32</td><td>quarter triplet</td></tr>
+<tr><td class="num">64</td><td>half triplet</td></tr>
+</table></div>
+</div>
+<p>The nine notes of the chanter are <code>g a b c d e f G A</code>: low G up to
+high A, with capitals for the two high notes.</p>
+
+<h3>Embellishment names</h3>
+<p>The later players accept names for the common embellishments, which are
+expanded into gracenotes before the tune is read:</p>
+<div class="table-wrap"><table>
+<tr><th>Name</th><th>Gracenotes</th><th>Embellishment</th></tr>
+<tr><td><code>gg</code> <code>tg</code></td><td>G · A</td><td>high-G, high-A ("top") gracenote</td></tr>
+<tr><td><code>bg</code> <code>cg</code> <code>dg</code> <code>eg</code> <code>fg</code></td><td>B · C · D · E · F</td><td>single gracenotes</td></tr>
+<tr><td><code>strlg</code> <code>strla</code></td><td>g · a</td><td>strike on low G, low A</td></tr>
+<tr><td><code>dbb</code> <code>dbc</code> <code>dbe</code> <code>dbf</code></td><td>G b d · G c d · G e f · G f G</td><td>doublings</td></tr>
+<tr><td><code>dbhg</code> <code>dbha</code> <code>hdbf</code></td><td>G f · A G · f G</td><td>doublings on high G and high A, half doubling on F</td></tr>
+<tr><td><code>grp</code></td><td>g d g</td><td>grip</td></tr>
+<tr><td><code>tar</code></td><td>g d g e</td><td>taorluath</td></tr>
+<tr><td><code>hvthrd</code></td><td>g d g c</td><td>heavy throw on D</td></tr>
+<tr><td><code>gstrd</code></td><td>G d g</td><td>G strike on D</td></tr>
+<tr><td><code>brl</code> <code>abr</code></td><td>g a g · a g a g</td><td>birls</td></tr>
+</table></div>
+
+<h2>Tuning a practice chanter</h2>
+<p>Practice chanters are not all at the same pitch, so version 0.2's chanter
+window lets you match the computer to yours. Set low G by ear, and every note
+above it follows by fixed ratios between neighbours; then nudge each note in
+turn going up. The result is saved to <code>CHANTER.TXT</code>.</p>
+<div class="table-wrap"><table>
+<tr><th>Step</th><td>G→A</td><td>A→B</td><td>B→C</td><td>C→D</td><td>D→E</td><td>E→F</td><td>F→G</td><td>G→A</td></tr>
+<tr><th>Ratio</th><td class="num">9/8</td><td class="num">9/8</td><td class="num">10/9</td><td class="num">27/25</td><td class="num">10/9</td><td class="num">10/9</td><td class="num">27/25</td><td class="num">10/9</td></tr>
+<tr><th>Hz</th><td class="num">412→464</td><td class="num">522</td><td class="num">580</td><td class="num">626</td><td class="num">696</td><td class="num">773</td><td class="num">835</td><td class="num">928</td></tr>
+</table></div>
+<p>The ratios from low A to high A multiply to exactly 2, an octave, and the
+frequencies in the <code>CHANTER.TXT</code> that ships with the source are
+this chain from a low G of 412 Hz, rounded to whole hertz at each step.</p>
+
+<h2>The tunes</h2>
+<p>The web edition has fifteen traditional tunes built in, and two demos:</p>
+<ul>
+  <li><strong>Marches and airs:</strong> Brian Boru's March, The Blue Bells of Scotland,
+  The Minstrel Boy, The Red Fox, Robin Adair, The Rowan Tree, The Star of the
+  County Down, Will Ye No Come Back Again, The 79th's Farewell to Gibraltar,
+  The Marquis of Huntly</li>
+  <li><strong>Irish:</strong> Fanny Power (O'Carolan), Thady You Gander, The Eagle's Whistle</li>
+  <li><strong>Others:</strong> The Duke of Atholl's Salute (piobaireachd), the
+  Epitaph of Seikilos (the oldest surviving complete piece of music, set for the chanter)</li>
+  <li><strong>Demos:</strong> a chanter scale, and a sampler of the embellishment names above</li>
+</ul>
+<p>The tune files are in <code>tunes/</code>. To add one, put a <code>.wbg</code>
+in <code>tunes/</code> and run <code>python3 bundle_tunes.py</code>, which rebuilds
+the list built into <code>play.html</code>. Or just drop the file on the page.</p>
+
+<h2>In this repository</h2>
+<div class="table-wrap"><table>
+<tr><td><code>play.html</code></td><td>the web edition; <code>play.html?test</code> runs its parser tests</td></tr>
+<tr><td><code>vb3/</code></td><td>the Visual Basic 3 source of version 0.2: forms, modules, project file, button images, the format notes and the original READMEs</td></tr>
+<tr><td><code>perl/</code></td><td>the Perl players and their chanter and four-count files</td></tr>
+<tr><td><code>python/</code></td><td>the Python players (they read the comma format, without embellishment names)</td></tr>
+<tr><td><code>tunes/</code>, <code>bundle_tunes.py</code></td><td>the tunes, and the script that builds them into the page</td></tr>
+</table></div>
+<p>The Visual Basic runtime and the custom controls the program needs
+(<code>VBRUN300.DLL</code>, <code>CMDIALOG.VBX</code>, <code>THREED.VBX</code>,
+<code>WINSOUND.DLL</code>) are not included; they were never the author's to share.</p>
+</main>
+</body>
+</html>

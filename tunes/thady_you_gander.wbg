@@ -1,0 +1,34 @@
+gg d 12 e 12
+dbf f 48        d 24     dbe e 48               d 24
+dbf f 48        d 24     dbe e 48               d 24
+gg b 36 e 12 gg e 24                    gg e 36 strlg d 12 strlg e 24
+gg b 36 e 12 gg e 24           dbe e 48      gg d 12 e 12
+dbf f 48        d 24     dbe e 48               d 24
+dbf f 48        d 24     dbe e 48               d 24
+gg a 36 d 12 gg d 24                    gg d 36 strlg c 12 strlg d 24
+gg a 36 d 12 gg d 24                          hvthrd d 48
+dbf f 48        d 24     dbe e 48               d 24
+dbf f 48        d 24     dbe e 48               d 24
+gg b 36 e 12 gg e 24                    gg e 36 strlg d 12 strlg e 24
+gg b 36 e 12 gg e 24           dbe e 48      gg d 12 e 12
+dbf f 48        d 24     dbe e 48               d 24
+dbf f 48        d 24     dbe e 48               d 24
+gg a 36 d 12 gg d 24                    gg d 36 strlg c 12 strlg d 24
+gg a 36 d 12 gg d 24                          hvthrd d 48
+A 24
+dbf f 36 G 12 A 24                dbe e 36 f 12 G 24
+dbf f 36 G 12 A 24       dbe e 48               d 24
+gg b 36 e 12 gg e 24                    gg e 36 strlg d 12 strlg e 24
+gg b 36 e 12 gg e 24           dbe e 48               A 24
+dbf f 36 G 12 A 24                dbe e 36 f 12 G 24
+dbf f 36 G 12 A 24       dbe e 48               d 24
+gg a 36 d 12 gg d 24                    gg d 36 strlg c 12 strlg d 24
+gg a 36 d 12 gg d 24                          hvthrd d 48
+dbf f 36 G 12 A 24                dbe e 36 f 12 G 24
+dbf f 36 G 12 A 24       dbe e 48               d 24
+gg b 36 e 12 gg e 24                    gg e 36 strlg d 12 strlg e 24
+gg b 36 e 12 gg e 24           dbe e 48               A 24
+dbf f 36 G 12 A 24                dbe e 36 f 12 G 24
+dbf f 36 G 12 A 24       dbe e 48               d 24
+gg a 36 d 12 gg d 24                    gg d 36 strlg c 12 strlg d 24
+gg a 36 d 12 gg d 24                          hvthrd d 48
