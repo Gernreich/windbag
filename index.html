@@ -49,6 +49,11 @@ td.num { font-variant-numeric: tabular-nums; }
 .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
 .cols > * { min-width: 0; }
 @media (max-width: 640px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+.fol { float: right; width: 240px; margin: 4px 0 16px 24px; }
+.fol img { width: 100%; height: auto; display: block; border-radius: 4px; }
+.fol figcaption { font-size: 0.8rem; color: var(--ink-2); margin-top: 6px; line-height: 1.4; }
+@media (max-width: 600px) { .fol { float: none; width: auto; max-width: 312px; margin: 0 auto 16px; } }
+h2 { clear: both; }
 .buttons { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin: 12px 0; }
 .buttons figure { margin: 0; text-align: center; font-size: 0.8rem; color: var(--ink-2); }
 .buttons img { image-rendering: pixelated; height: 48px; display: block; margin: 0 auto 4px; }
@@ -61,6 +66,14 @@ td.num { font-variant-numeric: tabular-nums; }
 Basic 3 between 1995 and 2000. Tunes are typed as plain text, one bar per line,
 and played on the PC speaker with the melody and gracenote speeds set separately.
 It now runs in a browser.</p>
+
+<figure class="fol">
+  <img src="images/le-fol.png" width="312" height="436"
+       alt="A skeleton playing the bagpipes leads a ragged fool, coloured in bright blues, greens and reds">
+  <figcaption><em>Le Fol</em> (The Fool), from Hans Holbein the Younger's
+  <em>Dance of Death</em> woodcuts (1538), coloured: the picture behind
+  Win(d)Bag's main window, taken from the VB3 form file.</figcaption>
+</figure>
 
 <p><a class="play" href="play.html">▶ Play the tunes</a></p>
 
