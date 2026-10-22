@@ -1,0 +1,32 @@
+	e 96 d 24 c 24
+dbb b 96 a 24 b 24
+grp c 96 d 24 c 24
+dbb b 72 strlg b 72
+	e 96 d 24 c 24
+dbb b 96 a 24 b 24
+grp c 108 b 12 g 24
+gg a 72 brl a 72
+	e 96 d 24 c 24
+dbb b 96 a 24 b 24
+grp c 96 d 24 c 24
+dbb b 72 strlg b 72
+	e 96 d 24 c 24
+dbb b 96 a 24 b 24
+grp c 108 b 12 g 24
+gg a 72 brl a 72
+	b 96 a 24 b 24
+dbc c 96 d 24 c 24
+grp b 96 a 24 b 24
+dbc c 72 strlg c 72
+	b 96 a 24 b 24
+dbc c 96 d 24 c 24
+grp b 108 a 12 dg g 24
+gg a 72 brl a 72
+	b 96 a 24 b 24
+dbc c 96 d 24 c 24
+grp b 96 a 24 b 24
+dbc c 72 strlg c 72
+	e 96 d 24 c 24
+dbb b 96 a 24 b 24
+grp c 108 b 12 g 24
+gg a 72 brl a 72

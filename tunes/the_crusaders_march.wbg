@@ -1,0 +1,18 @@
+gg a 24 b 24
+grp c 48 grp c 48 dbc c 48 eg a 36 dg c 12
+dbe e 48 strla e 48 dbe e 48 gg f 36 G 12
+        dbha A 36 G 12 tg hdbf f 36 e 12 dbc c 12 e 36 gg a 36 dg c 12
+        dbc c 36 eg b 12 gg b 36 c 12 dbb b 48 gg a 36 b 12
+grp c 48 grp c 48 dbc c 48 eg a 36 dg c 12
+dbe e 48 strla e 48 dbe e 48 hvthrd d 24 f 24
+        dbe e 24 c 24 hvthrd d 24 eg b 24 dbc c 24 e 24 hvthrd d 24 eg b 24
+        dbb b 24 eg a 24 gg a 48 b 24 strlg a 24 gg a 12 b 12 c 12 d 12
+dbe e 48 strla e 36 f 12 dbe e 36 d 12 dbc c 36 eg b 12
+dbb b 12 eg a 36 gg a 36 b 12 strlg a 48 gg f 36 G 12
+        dbha A 36 G 12 tg hdbf f 36 e 12 dbc c 24 e 24 gg a 24 dg c 24
+        dbc c 36 eg b 12 gg b 36 c 12 dbb b 48 gg a 24 b 24
+grp c 48 grp c 48 dbc c 48 eg a 24 dg c 24
+dbe e 48 strla e 48 dbe e 48 hvthrd d 24 f 24
+        dbe e 24 c 24 hvthrd d 24 eg b 24 dbc c 24 e 24 hvthrd d 24 eg b 24
+        dbb b 24 eg a 24 gg a 48 b 24 strlg a 24
+

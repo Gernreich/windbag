@@ -1,0 +1,38 @@
+a 24
+hvthrd d 48 dbc c 12 eg a 36 hvthrd d 36 e 12 gg f 12 A 36
+fg G 36 f 12 A 36 f 12 dbf f 12 e 36 strla e 36 f 12
+hvthrd d 48 dbc c 12 eg a 36 hvthrd d 36 e 12 gg f 12 A 36
+        bg strlg b 36 e 12 dbc c 12 eg a 36 hvthrd d 48 gg dg strlg24
+a 24
+hvthrd d 48 dbc c 12 eg a 36 hvthrd d 36 e 12 gg f 12 A 36
+fg G 36 f 12 A 36 f 12 dbf f 12 e 36 strla e 36 f 12
+hvthrd d 48 dbc c 12 eg a 36 hvthrd d 36 e 12 gg f 12 A 36
+        bg strlg b 36 e 12 dbc c 12 eg a 36 hvthrd d 48 gg dg strlg24
+e 24
+gg f 48 dbf f 36 e 12 hvthrd d 36 e 12 gg f 36 d 12
+dbhg G 36 e 12 dbf f 36 d 12 eg c 12 e 36 strla e 36 a 12
+        gg f 48 dbf f 36 e 12 hvthrd d 36 e 12 gg f 12 A 36
+        bg strlg b 36 e 12 dbc c 12 eg a 36 hvthrd d 48 gg dg strlg d 36 e 12
+        gg f 48 dbf f 36 e 12 hvthrd d 36 e 12 gg f 36 d 12
+dbhg G 36 e 12 dbf f 36 d 12 gg c 12 e 36 strla e 36 a 12
+gg f 36 G 12 dbha A 36 G 12 tg f 12 A 36 hdbf f 36 d 12
+gg bg strlg b 36 e 12 dbc c 12 eg a 36 hvthrd d 48 gg dg strlg d 24
+        fg
+        gg a 48 tar a 36 dg b 12 gg a 36 d 12 dbf f 36 d 12
+        gg bg strlg b 48 dbe e 36 d 12 gg c 12 e 36 strla e 36 f 12
+        gg a 48 tar a 36 dg b 12 gg a 36 d 12 dbf f 36 d 12
+        gg bg strlg b 36 e 12 dbc c 12 eg a 36 hvthrd d 48 gg dg strlg d 24
+fg
+gg a 48 tar a 36 dg b 12 gg a 36 d 12 dbf f 36 d 12
+gg bg strlg b 48 dbe e 36 d 12 gg c 12 e 36 strla e 36 f 12
+gg a 48 tar a 36 dg b 12 gg a 36 d 12 dbf f 36 d 12
+gg bg strlg b 36 e 12 dbc c 12 eg a 36 hvthrd d 48 gg dg strlg d 24
+        f 24
+        dbha A 36 G 12 tg f 12 A 36 hvthrd d 36 e 12 gg dg eg d 36 c 12
+        gg bg strlg b 48 gg c 36 d 12 gg a 12 e 36 strla e 36 a 12
+dbha A 36 G 12 tg f 12 A 36 hvthrd d 36 e 12 gg dg eg d 36 c 12
+gg bg strlg b 36 e 12 dbc c 12 eg a 36 hvthrd d 48 gg dg strlg d 36 f 12
+dbha A 36 G 12 tg f 12 A 36 hvthrd d 36 e 12 gg dg eg d 36 c 12
+        gg bg strlg b 48 gg c 36 d 12 gg a 12 e 36 strla e 36 a 12
+        dbf f 36 e 12 gg f 36 G 12 dbha A 36 f 12 dbe e 36 d 12
+        gg bg strlg b 36 e 12 dbc c 12 eg a 36 hvthrd d 48 gg dg strlg d 24

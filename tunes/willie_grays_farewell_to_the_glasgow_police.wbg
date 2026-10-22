@@ -1,0 +1,72 @@
+gg a 18 b 6
+grp c 48 dbc c 24 e 24
+gg a 18 dg c 6 gg e 6 A 18 hdbf f 24 gg e 18 f 6
+dbha A 24 abr a 24 dbf f 18 e 6 gg c 6 e 18
+dbf f 24 e 24 strla e 24 gg a 18 b 6
+        grp c 48 dbc c 24 e 24
+        gg a 18 dg c 6 gg e 6 A 18 hdbf f 24 gg e 18 f 6
+        dbha A 24 abr a 24 dbf f 18 e 6 gg c 6 dg b 18
+        dbc c 24 eg a 24 brl a 24
+gg a 18 b 6
+grp c 48 dbc c 24 e 24
+gg a 18 dg c 6 gg e 6 A 18 hdbf f 24 gg e 18 f 6
+dbha A 24 abr a 24 dbf f 18 e 6 gg c 6 e 18
+dbf f 24 e 24 strla e 24 gg a 18 b 6
+        grp c 48 dbc c 24 e 24
+        gg a 18 dg c 6 gg e 6 A 18 hdbf f 24 gg e 18 f 6
+        dbha A 24 abr a 24 dbf f 18 e 6 gg c 6 dg b 18
+        dbc c 24 eg a 24 brl a 24
+gg c 18 d 6
+dbe e 48 dbf f 18 e 6 gg c 6 e 18
+dbf f 24 e 24 strla e 24 gg c 6 e 18
+dbf f 48 A 18 f 6 gg e 18 c 6
+dbf f 24 e 24 dbf f 18 e 6 gg c 18 d 6
+        dbe e 48 dbf f 18 e 6 gg c 6 e 18
+        dbf f 24 e 24 strla e 24 gg c 6 e 18
+        dbf f 24 dbha A 24 abr a 18 f 6 gg e 18 b 6
+        dbc c 24 eg a 24 brl a 24
+gg c 18 d 6
+dbe e 48 dbf f 18 e 6 gg c 6 e 18
+dbf f 24 e 24 strla e 24 gg c 6 e 18
+dbf f 48 A 18 f 6 gg e 18 c 6
+dbf f 24 e 24 dbf f 18 e 6 gg c 18 d 6
+        dbe e 48 dbf f 18 e 6 gg c 6 e 18
+        dbf f 24 e 24 strla e 24 gg c 6 e 18
+        dbf f 24 dbha A 24 abr a 18 f 6 gg e 18 b 6
+        dbc c 24 eg a 24 brl a 24
+dbha A 24
+c 6 dg a 18 dg c 6 e 18 dbc c 24 e 24
+strla e 18 f 6 gg a 18 b 6 dbc c 24 gg b 6 dg a 18
+gg c 6 e 18 strla e 18 f 6 dbe e 18 c 6 gg b 6 dg a 18
+dbf f 24 e 24 strla e 24 dbhg A 24
+        abr a 24 dg c 6 e 18 dbc c 24 e 24
+        gg f 6 A 18 c 6 e 18 dbf f 24 gg e 18 f 6
+        dbha A 24 abr a 24 dbf f 18 e 6 gg c 6 dg b 18
+        dbc c 24 eg a 24 brl a 24
+dbha A 24
+c 6 dg a 18 dg c 6 e 18 dbc c 24 e 24
+strla e 18 f 6 gg a 18 b 6 dbc c 24 gg b 6 dg a 18
+gg c 6 e 18 strla e 18 f 6 dbe e 18 c 6 gg b 6 dg a 18
+dbf f 24 e 24 strla e 24 dbhg A 24
+        abr a 24 dg c 6 e 18 dbc c 24 e 24
+        gg f 6 A 18 c 6 e 18 dbf f 24 gg e 18 f 6
+        dbha A 24 abr a 24 dbf f 18 e 6 gg c 6 dg b 18
+        dbc c 24 eg a 24 brl a 24
+gg f 18 G 6
+A 18 G 6 A 18 e 6 dbf f 18 e 6 gg c 18 d 6
+gg e 18 f 6 dbc c 18 b 6 gg c 6 dg a 18 dg c 6 e 18
+dbf f 18 e 6 gg c 18 d 6 gg e 6 A 18 c 6 e 18
+dbf f 24 e 24 strla e 24 gg f 18 G 6
+        A 18 G 6 A 18 e 6 dbf f 18 e 6 gg c 18 d 6
+        gg e 6 A 18 c 6 e 18 dbf f 24 gg e 18 f 6
+        dbha A 24 abr a 24 dbf f 18 e 6 gg c 6 dg b 18
+        dbc c 24 eg a 24 brl a 24
+gg f 18 G 6
+A 18 G 6 A 18 e 6 dbf f 18 e 6 gg c 18 d 6
+gg e 18 f 6 dbc c 18 b 6 gg c 6 dg a 18 dg c 6 e 18
+dbf f 18 e 6 gg c 18 d 6 gg e 6 A 18 c 6 e 18
+dbf f 24 e 24 strla e 24 dbha A 24
+        abr a 24 dg c 6 e 18 dbc c 24 e 24
+        gg f 6 A 18 c 6 e 18 dbf f 24 gg e 18 f 6
+        dbha A 24 abr a 24 dbf f 18 e 6 gg c 6 dg b 18
+        dbc c 24 eg a 24 brl a 24

@@ -1,0 +1,54 @@
+e 24
+gg a 24 tar a 12 dg b 12 gg a 18 b 6 gg c 18 d 6
+dbe e 24 gg a 24 dbb b 24 gg a 18 dg b 6
+gg g 18 dg g 6 eg g 18 dg b 6 gg g 18 a 6 gg b 18 c 6
+hvthrd d 24 eg g 24 dbb b 24 gg a 12 dg g 12
+        gg a 24 tar a 12 dg b 12 gg a 18 b 6 gg c 18 d 6
+        dbe e 24 dbhg G 24 tg bg dg b 24 gg a 12 dg g 12
+        gg strla dg a 24 gg b 12 d 12 dbe e 24 d 12 b 12
+        dbb b 24 eg a 24 brl a 24
+e 24
+gg a 24 tar a 12 dg b 12 gg a 18 b 6 gg c 18 d 6
+dbe e 24 gg a 24 dbb b 24 gg a 18 dg b 6
+gg g 18 dg g 6 eg g 18 dg b 6 gg g 18 a 6 gg b 18 c 6
+hvthrd d 24 eg g 24 dbb b 24 gg a 12 dg g 12
+        gg a 24 tar a 12 dg b 12 gg a 18 b 6 gg c 18 d 6
+        dbe e 24 dbhg G 24 tg bg dg b 24 gg a 12 dg g 12
+        gg strla dg a 24 gg b 12 d 12 dbe e 24 d 12 b 12
+        dbb b 24 eg a 24 brl a 24
+e 24
+gg a 24 tar a 12 dg b 12 gg a 18 b 6 gg c 18 d 6
+dbe e 18 d 6 dbc c 18 b 6 gg a 48
+dbb b 24 gg a 12 dg b 12 gg g 18 a 6 gg b 18 c 6
+gg dg eg d 18 c 6 dbb b 18 a 6 gg strlg dg g 24 gg e 18 d 6
+        dbc c 24 gg b 18 c 6 hvthrd d 24 gg c 18 d 6
+        dbe e 24 dbhg G 24 tg bg dg b 24 gg a 12 dg g 12
+        gg strla dg a 24 gg b 12 d 12 dbe e 24 d 12 b 12
+        dbb b 24 eg a 24 brl a 24
+e 24
+gg a 24 tar a 12 dg b 12 gg a 18 b 6 gg c 18 d 6
+dbe e 18 d 6 dbc c 18 b 6 gg a 48
+dbb b 24 gg a 12 dg b 12 gg g 18 a 6 gg b 18 c 6
+gg dg eg d 18 c 6 dbb b 18 a 6 gg strlg dg g 24 gg e 18 d 6
+        dbc c 24 gg b 18 c 6 hvthrd d 24 gg c 18 d 6
+        dbe e 24 dbhg G 24 tg bg dg b 24 gg a 12 dg g 12
+        gg strla dg a 24 gg b 12 d 12 dbe e 24 d 12 b 12
+        dbb b 24 eg a 24 brl a 24
+gg b 18 d 6
+gg e 48 dbe e 24 grp e 24
+dbf f 24 e 24 dbe e 24 d 12 b 12
+hvthrd d 48 gg dg strlg24 e 24
+hvthrd d 24 gg f 12 d 12 dbe e 24 d 12 eg b 12
+        gg e 48 dbe e 24 grp e 24
+        dbf f 24 e 24 dbe e 24 d 12 b 12
+        dbhg G 24 tg f 12 A 12 eg fg e 24 d 12 b 12
+        dbb b 12 eg a 12 brl a 24
+gg b 18 d 6
+gg e 48 dbe e 24 grp e 24
+dbf f 24 e 24 dbe e 24 d 12 b 12
+hvthrd d 48 gg dg strlg24 e 24
+hvthrd d 24 gg f 12 d 12 dbe e 24 d 12 eg b 12
+        gg e 48 dbe e 24 grp e 24
+        dbf f 24 e 24 dbe e 24 d 12 b 12
+        dbhg G 24 tg f 12 A 12 eg fg e 24 d 12 b 12
+        dbb b 12 eg a 12 brl a 24
