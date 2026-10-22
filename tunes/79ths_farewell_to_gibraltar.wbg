@@ -1,72 +1,72 @@
-G,0,c,18,d,6
-G,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24
-G,0,a,48,g,0,d,0,g,0,e,0,a,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,G,0,e,18,d,6
-G,0,c,0,d,0,c,24,G,0,b,24,g,0,d,0,g,0,e,0,b,24,G,0,c,18,d,6
-G,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24
-G,0,a,48,g,0,d,0,g,0,e,0,a,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24
-G,0,c,18,d,6
-G,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24
-G,0,a,48,g,0,d,0,g,0,e,0,a,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,G,0,e,18,d,6
-G,0,c,0,d,0,c,24,G,0,b,24,g,0,d,0,g,0,e,0,b,24,G,0,c,18,d,6
-G,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24
-G,0,a,48,g,0,d,0,g,0,e,0,a,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24
-A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,f,6,A,18,e,18,c,6,G,0,b,6,d,0,b,18,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,f,0,G,0,f,24,G,0,b,24,g,0,d,0,g,0,e,0,b,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,f,6,A,18,e,18,c,6,G,0,b,6,d,0,b,18,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24
-A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,f,6,A,18,e,18,c,6,G,0,b,6,d,0,b,18,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,f,0,G,0,f,24,G,0,b,24,g,0,d,0,g,0,e,0,b,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,f,6,A,18,e,18,c,6,G,0,b,6,d,0,b,18,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24
-G,0,c,0,d,0,c,18,b,6
-G,0,a,36,b,12,g,0,d,0,g,0,c,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,b,6,d,0,b,18,d,0,c,18,b,6
-G,0,a,18,b,6,G,0,c,18,d,6,G,0,e,18,f,6,G,0,e,18,c,6
-G,0,f,0,G,0,f,24,e,0,b,24,g,0,d,0,g,0,e,0,b,24,G,0,c,0,d,0,c,18,b,6
-G,0,a,36,b,12,g,0,d,0,g,0,c,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,b,6,d,0,b,18,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24
-G,0,c,0,d,0,c,18,b,6
-G,0,a,36,b,12,g,0,d,0,g,0,c,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,b,6,d,0,b,18,d,0,c,18,b,6
-G,0,a,18,b,6,G,0,c,18,d,6,G,0,e,18,f,6,G,0,e,18,c,6
-G,0,f,0,G,0,f,24,e,0,b,24,g,0,d,0,g,0,e,0,b,24,G,0,c,0,d,0,c,18,b,6
-G,0,a,36,b,12,g,0,d,0,g,0,c,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,b,6,d,0,b,18,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24
-G,0,c,18,d,6
-G,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24
-G,0,e,48,g,0,d,0,g,0,e,24,A,24
-f,0,G,0,f,36,e,12,G,0,f,24,A,24
-f,0,G,0,f,36,e,12,G,0,c,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,c,0,d,0,c,24,G,0,b,18,d,0,a,6
-G,0,b,6,d,0,a,18,G,0,b,18,c,6,G,0,e,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24
-G,0,c,18,d,6
-G,0,e,36,f,12,G,0,e,0,f,0,e,24,G,0,c,24
-G,0,e,48,g,0,d,0,g,0,e,24,A,24
-f,0,G,0,f,36,e,12,G,0,f,24,A,24
-f,0,G,0,f,36,e,12,G,0,c,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,c,0,d,0,c,24,G,0,b,18,d,0,a,6
-G,0,b,6,d,0,a,18,G,0,b,18,c,6,G,0,e,24,A,24
-f,0,G,0,f,24,G,0,e,18,c,6,G,0,e,18,f,6,A,18,e,6
-G,0,c,0,d,0,c,24,e,0,a,24,g,0,a,0,g,0,a,24
+gg c 18 d 6
+gg e 36 f 12 dbe e 24 gg c 24
+gg a 48 tar a 24 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 gg e 18 d 6
+dbc c 24 gg b 24 tar b 24 gg c 18 d 6
+gg e 36 f 12 dbe e 24 gg c 24
+gg a 48 tar a 24 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+dbc c 24 eg a 24 brl a 24
+gg c 18 d 6
+gg e 36 f 12 dbe e 24 gg c 24
+gg a 48 tar a 24 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 gg e 18 d 6
+dbc c 24 gg b 24 tar b 24 gg c 18 d 6
+gg e 36 f 12 dbe e 24 gg c 24
+gg a 48 tar a 24 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+dbc c 24 eg a 24 brl a 24
+A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+gg f 6 A 18 e 18 c 6 gg b 6 dg b 18 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+dbf f 24 gg b 24 tar b 24 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+gg f 6 A 18 e 18 c 6 gg b 6 dg b 18 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+dbc c 24 eg a 24 brl a 24
+A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+gg f 6 A 18 e 18 c 6 gg b 6 dg b 18 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+dbf f 24 gg b 24 tar b 24 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+gg f 6 A 18 e 18 c 6 gg b 6 dg b 18 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+dbc c 24 eg a 24 brl a 24
+dbc c 18 b 6
+gg a 36 b 12 grp c 24 A 24
+hdbf f 24 gg e 18 c 6 gg b 6 dg b 18 dg c 18 b 6
+gg a 18 b 6 gg c 18 d 6 gg e 18 f 6 gg e 18 c 6
+dbf f 24 eg b 24 tar b 24 dbc c 18 b 6
+gg a 36 b 12 grp c 24 A 24
+hdbf f 24 gg e 18 c 6 gg b 6 dg b 18 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+dbc c 24 eg a 24 brl a 24
+dbc c 18 b 6
+gg a 36 b 12 grp c 24 A 24
+hdbf f 24 gg e 18 c 6 gg b 6 dg b 18 dg c 18 b 6
+gg a 18 b 6 gg c 18 d 6 gg e 18 f 6 gg e 18 c 6
+dbf f 24 eg b 24 tar b 24 dbc c 18 b 6
+gg a 36 b 12 grp c 24 A 24
+hdbf f 24 gg e 18 c 6 gg b 6 dg b 18 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+dbc c 24 eg a 24 brl a 24
+gg c 18 d 6
+gg e 36 f 12 dbe e 24 gg c 24
+gg e 48 grp e 24 A 24
+hdbf f 36 e 12 gg f 24 A 24
+hdbf f 36 e 12 gg c 24 A 24
+hdbf f 24 gg e 18 c 6 dbc c 24 gg b 18 dg a 6
+gg b 6 dg a 18 gg b 18 c 6 gg e 24 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+dbc c 24 eg a 24 brl a 24
+gg c 18 d 6
+gg e 36 f 12 dbe e 24 gg c 24
+gg e 48 grp e 24 A 24
+hdbf f 36 e 12 gg f 24 A 24
+hdbf f 36 e 12 gg c 24 A 24
+hdbf f 24 gg e 18 c 6 dbc c 24 gg b 18 dg a 6
+gg b 6 dg a 18 gg b 18 c 6 gg e 24 A 24
+hdbf f 24 gg e 18 c 6 gg e 18 f 6 A 18 e 6
+dbc c 24 eg a 24 brl a 24

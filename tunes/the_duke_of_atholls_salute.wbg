@@ -1,8 +1,8 @@
-G,0,a,24,d,0,c,72,b,48,G,0,g,12,d,0,b,72,G,0,a,48,f,0,e,0,G,0,e,0,f,48,G,0,e,96,c,24
-G,0,a,24,d,0,c,72,b,48,G,0,g,12,d,0,b,72,G,0,a,48,f,0,e,0,G,0,e,0,f,48,G,0,e,96,c,24
-G,0,b,24,d,48,c,24,G,0,a,12,d,0,c,72,G,0,b,48,A,0,G,0,A,48,f,96,b,24
-G,0,a,24,d,0,c,72,b,48,G,0,g,12,d,0,b,72,G,0,a,48,f,0,e,0,G,0,e,0,f,48,G,0,e,96,c,24
-G,0,b,24,d,48,c,24,G,0,a,12,d,0,c,72,G,0,b,48,A,0,G,0,A,48,f,96,b,24
-G,0,b,24,d,48,c,24,G,0,a,12,d,0,c,72,G,0,b,48,A,0,G,0,A,48,f,96,b,24
-G,0,a,24,d,0,c,72,b,48,G,0,g,12,d,0,b,72,G,0,a,48,f,0,e,0,G,0,e,0,f,48,G,0,e,96,c,24
-G,0,b,24,d,48,c,24,G,0,a,12,d,0,c,72,G,0,b,48,A,0,G,0,A,48,f,96,b,24
+gg a 24 dg c 72 b 48 gg g 12 dg b 72 gg a 48 fg eg gg eg f 48 gg e 96 c 24
+gg a 24 dg c 72 b 48 gg g 12 dg b 72 gg a 48 fg eg gg eg f 48 gg e 96 c 24
+gg b 24 d 48 c 24 gg a 12 dg c 72 gg b 48 dbha A 48 f 96 b 24
+gg a 24 dg c 72 b 48 gg g 12 dg b 72 gg a 48 fg eg gg eg f 48 gg e 96 c 24
+gg b 24 d 48 c 24 gg a 12 dg c 72 gg b 48 dbha A 48 f 96 b 24
+gg b 24 d 48 c 24 gg a 12 dg c 72 gg b 48 dbha A 48 f 96 b 24
+gg a 24 dg c 72 b 48 gg g 12 dg b 72 gg a 48 fg eg gg eg f 48 gg e 96 c 24
+gg b 24 d 48 c 24 gg a 12 dg c 72 gg b 48 dbha A 48 f 96 b 24
