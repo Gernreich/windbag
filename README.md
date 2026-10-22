@@ -1,5 +1,7 @@
 # Win(d)Bag
 
+**[← All projects](https://gernreich.github.io/)**
+
 **[Read the writeup](https://gernreich.github.io/windbag/)** ·
 **[Play the tunes](https://gernreich.github.io/windbag/play.html)**
 
