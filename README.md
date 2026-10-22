@@ -4,7 +4,8 @@
 **[Play the tunes](https://gernreich.github.io/windbag/play.html)**
 
 A Great Highland bagpipe tune player for Windows 3.1, written in Visual Basic 3
-between 1995 and 2000. Tunes are typed as plain text in the `.wbg` format and
+between 1995 and 2000. The first version, now lost, was written in BASIC on an
+IBM PCjr. Tunes are typed as plain text in the `.wbg` format and
 played on the PC speaker, with the melody and gracenote speeds set separately.
 The web edition plays the same files in a browser.
 
