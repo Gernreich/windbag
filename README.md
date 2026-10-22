@@ -11,9 +11,13 @@ IBM PCjr in the early 1990s. Tunes are typed as plain text in the `.wbg` format 
 played on the PC speaker, with the melody and gracenote speeds set separately.
 The web edition plays the same files in a browser.
 
+**The progression:** BASIC → Visual Basic → Perl → Python (Claude Code) → HTML
+(Claude Code).
+
 **Whose work this is.** Win(d)Bag, the `.wbg` format, the practice-chanter
 tuning window, the Perl players and the colouring of the Holbein woodcut are
-Michael Carnright's. The web edition and the Python players are later ports. The
+Michael Carnright's. The Python players and the web edition are later ports,
+written with Claude Code. The
 tunes are traditional or his own, and their `.wbg` transcriptions are his.
 
 ## Contents
