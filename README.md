@@ -47,3 +47,7 @@ or just drop the file on the web edition.
 
 The Visual Basic runtime and the third-party controls the program needs
 (`VBRUN300.DLL`, `CMDIALOG.VBX`, `THREED.VBX`, `WINSOUND.DLL`) are not included.
+
+## Credits
+
+Made by Michael Gernreich with [Claude](https://www.anthropic.com/claude) (Anthropic), working in Claude Code, which co-wrote the code and the documentation. Commits Claude made carry a `Co-Authored-By: Claude` line.
