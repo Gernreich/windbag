@@ -19,7 +19,8 @@ tuning window, the Perl players and the colouring of the Holbein woodcut are
 Michael Carnright's. The Python players and the web edition are later ports,
 written with Claude Code. The
 tunes are not his: they are traditional or by other composers, many in settings
-from pipe tutor books. Their `.wbg` transcriptions are his.
+from pipe tutor books. Their `.wbg` transcriptions are his, apart from one
+setting of the Epitaph of Seikilos embellished by Claude Code.
 
 ## Contents
 
