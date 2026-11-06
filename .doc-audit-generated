@@ -1,0 +1,8 @@
+# Each is one row in the README's file table: the Visual Basic 3 source, the
+# Perl player and helpers, the macOS players, the 95 tunes and the three
+# uilleann tunes.
+vb3
+perl
+python
+tunes
+uwbg
